@@ -3,32 +3,32 @@ package nfp136.sudoku;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GrilleFillColonne {
+public class GrilleFillSousCarre {
 		
 	public static FillResult fillMinEl(Grille grilleObj1, ArrayList<Integer> indMinList) {
-		boolean grillUpd = false;
 		
-		int indMin = grilleObj1.trouverColonneAvecMinEl(indMinList).index;
+		boolean grillUpd = false;
+		int indMin = grilleObj1.trouverSousCarreAvecMinEl(indMinList).index;
+		System.out.println("indMin " + indMin);
 		if(indMin == -1) return new FillResult(-1, grillUpd);
 		
 		
-		System.out.println("colonneObjets 0 : " + grilleObj1.colonneObjets[indMin]);
+		System.out.println("sousCarreObjets [min] : " + grilleObj1.sousCarreObjets[indMin]);
 		
 		Ligne[] ligneObjets = grilleObj1.ligneObjets;
 		Colonne[] colonneObjets = grilleObj1.colonneObjets;
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
-		
-		System.out.println("ligneObjets" + Arrays.toString(ligneObjets));
 		
 		int k = 0;
 		
 		outerLoop:
 		while(k==0) {
 			k = 1;
-			ArrayList<Integer> missing = colonneObjets[indMin].getElementsManquants();
+			ArrayList<Integer> missing = sousCarreObjets[indMin].getElementsManquants();
 			System.out.println("missing: " + missing);
 			
-			 ArrayList<Case> emptySpots = colonneObjets[indMin].getCasesVides();
+			 ArrayList<Case> emptySpots = sousCarreObjets[indMin].getCasesVides();
+			 System.out.println("emptySpots * " + emptySpots);
 			 
 			 for(int j = 0; j < missing.size(); j++) {
 				 System.out.println("El. " + missing.get(j));
@@ -38,8 +38,8 @@ public class GrilleFillColonne {
 				 //ArrayList<Boolean> suiviElementsSousCarres = new ArrayList<>(); // idem pour les souscarrés
 				 
 				 
-				 GrillFillColonneUtils.analyseEmptySpots(ligneObjets, colonneObjets, emptySpots, missing.get(j), suiviElements);
-				 falseCompteurCol = GrillFillColonneUtils.calculateFalseEls(suiviElements);
+				 GrillFillSousCarreUtils.analyseEmptySpots(ligneObjets, colonneObjets, emptySpots, missing.get(j), suiviElements);
+				 falseCompteurCol = GrillFillSousCarreUtils.calculateFalseEls(suiviElements);
 				 
 				 System.out.println("suivi" + suiviElements);
 				 System.out.println("nb of false: " + falseCompteurCol);
@@ -48,15 +48,15 @@ public class GrilleFillColonne {
 					 int index = suiviElements.indexOf(false);
 					 System.out.println("index " + index);
 					 int ligne = emptySpots.get(index).ligne;
-					 int sousCarre = emptySpots.get(index).sousCarre;
-					 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne + ", col " + (indMin+1) + ", sousCarré " + sousCarre);
+					 int colonne = emptySpots.get(index).colonne;
+					 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne + ", col " + colonne + ", sousCarré " + (indMin+1));
 					 
-					 colonneObjets[indMin].updateCol(ligne, missing.get(j));
-					 ligneObjets[ligne-1].updateLigne((indMin+1), missing.get(j));
-					 sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, (indMin+1),  missing.get(j));
+					 colonneObjets[colonne - 1].updateCol(ligne, missing.get(j));
+					 ligneObjets[ligne-1].updateLigne(colonne, missing.get(j));
+					 sousCarreObjets[indMin].updateSousCarre(ligne, colonne,  missing.get(j));
 					 System.out.println(ligneObjets[ligne-1]);
-					 System.out.println(colonneObjets[indMin]);
-					 System.out.println(sousCarreObjets[sousCarre-1]);
+					 System.out.println(colonneObjets[colonne-1]);
+					 System.out.println(sousCarreObjets[indMin]);
 					 k = 0;
 					 grillUpd = true;
 					 continue outerLoop;
@@ -76,6 +76,7 @@ public class GrilleFillColonne {
 		}
 		
 		return new FillResult(indMin, grillUpd);
+		//return indMin;
 		
 	}
 }

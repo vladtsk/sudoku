@@ -80,11 +80,20 @@ public class GrillFillLigneUtils {
 			 if(!sousCarreObj1.contientElement(missingEl) && sousCarreObj2.contientElement(missingEl)) {
 				 
 				 ligneObjets[indMin].updateLigne(col1, missingEl);
-				 colonneObjets[col1-1].updateCol(indMin+1, missingEl);
-				 sousCarreObjets[sousCarre1 - 1].updateSousCarre(indMin+1, col1,  missingEl);
+				 colonneObjets[col1-1].updateCol((indMin+1), missingEl);
+				 sousCarreObjets[sousCarre1 - 1].updateSousCarre((indMin+1), col1,  missingEl);
 				 
 				 updated = true;
 				 
+				 
+			 } else if(sousCarreObj1.contientElement(missingEl) && !sousCarreObj2.contientElement(missingEl)) {
+				 System.out.println("putting missing el " + missingEl + " at row " + (indMin+1) + ", col " + col2);
+				 
+				 ligneObjets[indMin].updateLigne(col2, missingEl);
+				 colonneObjets[col2-1].updateCol((indMin+1), missingEl);
+				 sousCarreObjets[sousCarre2 - 1].updateSousCarre((indMin+1), col2,  missingEl);
+				 
+				 updated = true;
 				 
 			 }
 		return updated;

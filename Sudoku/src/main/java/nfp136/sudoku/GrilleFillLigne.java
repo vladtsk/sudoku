@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class GrilleFillLigne {
 		
-	public static int fillMinEl(Grille grilleObj1, ArrayList<Integer> indMinList) {
+	public static FillResult fillMinEl(Grille grilleObj1, ArrayList<Integer> indMinList) {
 		
-		
-		int indMin = grilleObj1.trouverLigneAvecMinEl(indMinList);
-		if(indMin == -1) return -1;
+		boolean grillUpd = false;
+		int indMin = grilleObj1.trouverLigneAvecMinEl(indMinList).index;
+		if(indMin == -1) return new FillResult(-1, grillUpd);
 		/*grilleObj1.trouverColonneAvecMinEl();
 		grilleObj1.trouverSousCarreAvecMinEl();*/
 		
@@ -56,7 +56,7 @@ public class GrilleFillLigne {
 					 System.out.println(colonneObjets[column-1]);
 					 System.out.println(sousCarreObjets[sousCarre-1]);
 					 k = 0;
-					 
+					 grillUpd = true;
 					 continue outerLoop;
 					 
 				 } else if(falseCompteurCol == 2) {
@@ -64,6 +64,7 @@ public class GrilleFillLigne {
 					 boolean updated = GrillFillLigneUtils.update2El(suiviElements, emptySpots, grilleObj1, missing.get(j), indMin);
 						if(updated) {
 							k = 0;
+							grillUpd = true;
 							continue outerLoop;
 						}
 						 
@@ -73,7 +74,7 @@ public class GrilleFillLigne {
 		 
 		}
 		
-		return indMin;
+		return new FillResult(indMin, grillUpd);
 		
 	}
 }

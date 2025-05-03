@@ -7,7 +7,7 @@ public class GrillFillColonneUtils {
 	
 	public static void analyseEmptySpots(Ligne[] ligneObjets, Colonne[] colonneObjets, ArrayList<Case> emptySpots, int missingEl, ArrayList<Boolean> suiviElements) {
 		
-		
+		System.out.println("empty sp.: " + emptySpots);
 		for(int i = 0; i < emptySpots.size(); i++) {
 			 
 			 int ligne = emptySpots.get(i).ligne;
@@ -68,7 +68,7 @@ public class GrillFillColonneUtils {
 			 int ligne1 = emptySpots.get(elIndexes.get(0)).ligne;
 			 int ligne2 = emptySpots.get(elIndexes.get(1)).ligne;
 			 
-			 System.out.println(ligne2);
+			 System.out.println("ligne2 " + ligne2);
 			 
 			 SousCarre sousCarreObj1 = sousCarreObjets[sousCarre1 - 1];
 			 SousCarre sousCarreObj2 = sousCarreObjets[sousCarre2 - 1];
@@ -80,13 +80,23 @@ public class GrillFillColonneUtils {
 			 if(!sousCarreObj1.contientElement(missingEl) && sousCarreObj2.contientElement(missingEl)) {
 				 
 				 colonneObjets[indMin].updateCol(ligne1, missingEl);
-				 ligneObjets[ligne1-1].updateLigne(indMin+1, missingEl);
-				 sousCarreObjets[sousCarre1 - 1].updateSousCarre(ligne1, indMin+1,  missingEl);
+				 ligneObjets[ligne1-1].updateLigne((indMin+1), missingEl);
+				 sousCarreObjets[sousCarre1 - 1].updateSousCarre(ligne1, (indMin+1),  missingEl);
 				 
 				 updated = true;
 				 
 				 
+			 } else if(sousCarreObj1.contientElement(missingEl) && !sousCarreObj2.contientElement(missingEl)) {
+				 System.out.println("putting missing el " + missingEl + " at row " + ligne2 + ", col " + (indMin+1));
+				 colonneObjets[indMin].updateCol(ligne2, missingEl);
+				 ligneObjets[ligne2-1].updateLigne((indMin+1), missingEl);
+				 sousCarreObjets[sousCarre2 - 1].updateSousCarre(ligne2, (indMin+1),  missingEl);
+				 
+				 updated = true;
+				 
 			 }
+			 
+			 
 		return updated;
 	}
 }

@@ -68,15 +68,15 @@ public class Grille {
 	}
 	
 	
-	public int trouverLigneAvecMinEl(ArrayList<Integer> indMinList) {
+	public MinResult trouverLigneAvecMinEl(ArrayList<Integer> indMinList) {
 		return GrilleUtilsSearch.trouverLigneAvecMinEl(ligneObjets, indMinList);
 	}
 	
-	public int trouverColonneAvecMinEl(ArrayList<Integer> indMinList) {
+	public MinResult trouverColonneAvecMinEl(ArrayList<Integer> indMinList) {
 		return GrilleUtilsSearch.trouverColonneAvecMinEl(colonneObjets, indMinList);
 	}
 	
-	public int trouverSousCarreAvecMinEl(ArrayList<Integer> indMinList) {
+	public MinResult trouverSousCarreAvecMinEl(ArrayList<Integer> indMinList) {
 		return GrilleUtilsSearch.trouverSousCarreAvecMinEl(sousCarreObjets, indMinList);
 	}
 		

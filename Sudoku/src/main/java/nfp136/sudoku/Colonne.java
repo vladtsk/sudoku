@@ -49,10 +49,27 @@ public class Colonne {
 	}
 	
 	public ArrayList<Integer> getElementsManquants() {
+		elementsManquants.clear();
+		
+		for(int num : nums) {
+			boolean found = false;
+			for(int el : colonne) {
+				if(el == num) {
+					found = true;
+					break;
+				}
+			}
+			if(found == false) {
+				elementsManquants.add(num);
+			}
+			
+		} 
+		
 		return elementsManquants;
 	}
 	
 	public ArrayList<Case> getCasesVides() {
+		casesVides.clear();
 		int i;
 		for(i = 0; i < colonne.length; i++) {
 			if(colonne[i] == 0) {

@@ -50,10 +50,27 @@ public class SousCarre {
 	}
 	
 	public ArrayList<Integer> getElementsManquants() {
+		elementsManquants.clear();
+		
+		for(int num : nums) {
+			boolean found = false;
+			for(int el : sousCarre) {
+				if(el == num) {
+					found = true;
+					break;
+				}
+			}
+			if(found == false) {
+				elementsManquants.add(num);
+			}
+			
+		} 
+		
 		return elementsManquants;
 	}
 	
 	public ArrayList<Case> getCasesVides() {
+		casesVides.clear();
 		int i;
 		int row = 0;
 		int column = 0;
