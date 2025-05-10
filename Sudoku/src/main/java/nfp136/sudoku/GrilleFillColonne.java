@@ -38,11 +38,13 @@ public class GrilleFillColonne {
 				 //ArrayList<Boolean> suiviElementsSousCarres = new ArrayList<>(); // idem pour les souscarrés
 				 
 				 
-				 GrillFillColonneUtils.analyseEmptySpots(ligneObjets, colonneObjets, emptySpots, missing.get(j), suiviElements);
+				 GrillFillColonneUtils.analyseEmptySpots(grilleObj1, emptySpots, missing.get(j), suiviElements);
 				 falseCompteurCol = GrillFillColonneUtils.calculateFalseEls(suiviElements);
 				 
 				 System.out.println("suivi" + suiviElements);
 				 System.out.println("nb of false: " + falseCompteurCol);
+				 
+				 if(missing.size() == 1 && falseCompteurCol == 0) throw new Error("Cannot update element");
 				 
 				 if(falseCompteurCol == 1) {
 					 int index = suiviElements.indexOf(false);
@@ -72,6 +74,9 @@ public class GrilleFillColonne {
 					 
 				 }
 			 }
+			 
+			 if(emptySpots.size() > 0) System.out.println("Empty sp. 0, poss val.: " + emptySpots.get(0).valeursPossibles);
+			 if(emptySpots.size() > 0) System.out.println("Empty sp. 1, poss val.: " + emptySpots.get(1).valeursPossibles);
 		 
 		}
 		

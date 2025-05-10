@@ -44,6 +44,8 @@ public class GrilleFillSousCarre {
 				 System.out.println("suivi" + suiviElements);
 				 System.out.println("nb of false: " + falseCompteurCol);
 				 
+				 if(missing.size() == 1 && falseCompteurCol == 0) throw new Error("Cannot update element"); 
+				 
 				 if(falseCompteurCol == 1) {
 					 int index = suiviElements.indexOf(false);
 					 System.out.println("index " + index);
@@ -72,6 +74,8 @@ public class GrilleFillSousCarre {
 					 
 				 }
 			 }
+			 
+			 if(emptySpots.size() > 0) System.out.println("Empty sp. poss val.: " + emptySpots.get(0).valeursPossibles);
 		 
 		}
 		

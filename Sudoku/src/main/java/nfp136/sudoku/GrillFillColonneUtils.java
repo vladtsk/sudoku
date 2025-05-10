@@ -5,9 +5,13 @@ import java.util.ArrayList;
 public class GrillFillColonneUtils {
 	
 	
-	public static void analyseEmptySpots(Ligne[] ligneObjets, Colonne[] colonneObjets, ArrayList<Case> emptySpots, int missingEl, ArrayList<Boolean> suiviElements) {
+	public static void analyseEmptySpots(Grille grilleObj1, ArrayList<Case> emptySpots, int missingEl, ArrayList<Boolean> suiviElements) {
 		
-		System.out.println("empty sp.: " + emptySpots);
+		
+		Ligne[] ligneObjets = grilleObj1.ligneObjets;
+		//Colonne[] colonneObjets = grilleObj1.colonneObjets;
+		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
+		
 		for(int i = 0; i < emptySpots.size(); i++) {
 			 
 			 int ligne = emptySpots.get(i).ligne;
@@ -18,7 +22,11 @@ public class GrillFillColonneUtils {
 			 
 			 Ligne ligneObj = ligneObjets[ligne-1];
 			 boolean ligneContains = ligneObj.contientElement(missingEl);
-			 suiviElements.add(ligneContains);
+			 
+			 SousCarre sousCarreObj = sousCarreObjets[sousCarre-1];
+			 boolean sousCarreContains = sousCarreObj.contientElement(missingEl);
+			 
+			 suiviElements.add(ligneContains || sousCarreContains);
 			 
 			 
 			 System.out.println("ligneObj obj " + ligneObj);
@@ -94,6 +102,11 @@ public class GrillFillColonneUtils {
 				 
 				 updated = true;
 				 
+			 } else {
+				 for(int i = 0; i < suiviElements.size(); i++) {
+					 if(suiviElements.get(i) == false) emptySpots.get(i).updateValeursPossibles(missingEl);
+					 if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
+				 }
 			 }
 			 
 			 

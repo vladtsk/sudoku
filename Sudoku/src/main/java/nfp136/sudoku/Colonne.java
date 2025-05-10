@@ -12,9 +12,12 @@ public class Colonne {
 	
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
+	
+	Grille parentGrille;
 
-	public Colonne(int[] colonne) {
+	public Colonne(int[] colonne, Grille parentGrille) {
 		this.colonne = colonne;
+		this.parentGrille = parentGrille;
 		colonneCompteur++;
 		numColonneCourante = colonneCompteur;
 		
@@ -31,6 +34,10 @@ public class Colonne {
 			}
 			
 		} 
+	}
+	
+	public Colonne(int[] colonne) {
+		this(colonne, null);
 	}
 	
 	public int calculerNbElements() {
@@ -91,6 +98,8 @@ public class Colonne {
 	public void updateCol(int ligne, int el) {
 		colonne[ligne-1] = el;
 		System.out.println("Updating colonne " + numColonneCourante + ": " + "with el " + el);
+		
+		parentGrille.removeCasesDeuxEl(ligne, numColonneCourante);
 	}
 	
 	@Override

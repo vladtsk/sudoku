@@ -24,12 +24,8 @@ public class GrillFillSousCarreUtils {
 			 Colonne colonneObj = colonneObjets[colonne-1];
 			 boolean ligneContains = ligneObj.contientElement(missingEl);
 			 boolean colonneContains = colonneObj.contientElement(missingEl);
-			 System.out.println("or " + (ligneContains || colonneContains));
-			 /*if((ligneContains || colonneContains)) {
-				 suiviElements.add(true);
-			 } else {
-				 suiviElements.add(false);
-			 }*/
+			 
+			 
 			 suiviElements.add((ligneContains || colonneContains));
 			 
 			 
@@ -113,6 +109,11 @@ public class GrillFillSousCarreUtils {
 				 
 				 updated = true;
 				 
+			 } else {
+				 for(int i = 0; i < suiviElements.size(); i++) {
+					 if(suiviElements.get(i) == false) emptySpots.get(i).updateValeursPossibles(missingEl);
+					 if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
+				 }
 			 }
 			 
 			 

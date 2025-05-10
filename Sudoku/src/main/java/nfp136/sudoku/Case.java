@@ -1,7 +1,7 @@
 package nfp136.sudoku;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class Case {
 
@@ -45,12 +45,15 @@ public class Case {
 		return valeursPossibles;
 	}
 	
-	public void updateValeursPossibles(ArrayList<Integer> list) {
-		for(int el : list) {
+	public void updateValeursPossibles(int el) { // ArrayList<Integer> list
+		/*for(int el : list) {
 			valeursPossibles.add(el);
-		}
+		}*/
 		
-		System.out.println("Updating valeursPossibles with " + list);
+		if(!valeursPossibles.contains(el)) valeursPossibles.add(el);
+		
+		
+		System.out.println("Updating valeursPossibles with " + el);
 	}
 	
 	public void removeValeurPossible(int el) {

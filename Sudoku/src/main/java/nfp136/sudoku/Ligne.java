@@ -11,9 +11,12 @@ public class Ligne {
 	int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
+	
+	private Grille parentGrille;
 
-	public Ligne(int[] ligne) {
+	public Ligne(int[] ligne, Grille parentGrille) {
 		this.ligne = ligne;
+		this.parentGrille = parentGrille;
 		ligneCompteur ++;
 		numLigneCourante = ligneCompteur;
 		//System.out.println("numLigneCourante");
@@ -32,6 +35,10 @@ public class Ligne {
 			}
 			
 		} 
+	}
+	
+	public Ligne(int[] ligne) {
+		this(ligne, null);
 	}
 	
 	public int[] getLigne() {
@@ -90,6 +97,9 @@ public class Ligne {
 	public void updateLigne(int col, int el) {
 		ligne[col-1] = el;
 		System.out.println("Updating ligne " + numLigneCourante + ": " + "with el " + el);
+		
+		parentGrille.removeCasesDeuxEl(numLigneCourante, col);
+		
 	}
 	
 	

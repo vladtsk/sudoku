@@ -12,9 +12,12 @@ public class SousCarre {
 	
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
+	
+	Grille parentGrille;
 
-	public SousCarre(int[] sousCarre) {
+	public SousCarre(int[] sousCarre, Grille parentGrille) {
 		this.sousCarre = sousCarre;
+		this.parentGrille = parentGrille;
 		
 		sousCarreCompteur++;
 		numSousCarreCourant = sousCarreCompteur;
@@ -32,6 +35,10 @@ public class SousCarre {
 			}
 			
 		} 
+	}
+	
+	public SousCarre(int[] sousCarre) {
+		this(sousCarre, null);
 	}
 	
 	public int calculerNbElements() {
@@ -168,6 +175,8 @@ public class SousCarre {
 				
 		sousCarre[index-1] = el;
 		System.out.println("Updating sousCarré " + numSousCarreCourant + ": " + "with el " + el);
+		
+		parentGrille.removeCasesDeuxEl(ligne, col);
 	}
 	
 	@Override

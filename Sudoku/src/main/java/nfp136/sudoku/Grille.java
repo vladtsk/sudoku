@@ -10,11 +10,13 @@ public class Grille {
 	Colonne[] colonneObjets;
 	SousCarre[] sousCarreObjets;
 	
+	ArrayList<Case> casesDeuxEl = new ArrayList<>(); // une liste qui contient des cases qui peuvent avoir deux valeurs possibles
+	
 	public Grille(int[][] gr) {
 			
 		this.gr = gr;
 		
-		ligneObjets = new Ligne[]{new Ligne(gr[0]), new Ligne(gr[1]), new Ligne(gr[2]), new Ligne(gr[3]), new Ligne(gr[4]), new Ligne(gr[5]), new Ligne(gr[6]), new Ligne(gr[7]), new Ligne(gr[8])};
+		ligneObjets = new Ligne[]{new Ligne(gr[0], this), new Ligne(gr[1], this), new Ligne(gr[2], this), new Ligne(gr[3], this), new Ligne(gr[4], this), new Ligne(gr[5], this), new Ligne(gr[6], this), new Ligne(gr[7], this), new Ligne(gr[8], this)};
 		
 		colonneObjets = new Colonne[9];
 		
@@ -26,7 +28,7 @@ public class Grille {
 				colonne[j] = ligneObjets[j].getLigne()[i];
 			}
 			
-			colonneObjets[i] = new Colonne(colonne);
+			colonneObjets[i] = new Colonne(colonne, this);
 			//System.out.println(Arrays.toString(colonneObjets[i].getColonne()));
 			
 
@@ -54,7 +56,7 @@ public class Grille {
 					  
 				}
 				
-				sousCarreObjets[index] = new SousCarre(sous_carre);
+				sousCarreObjets[index] = new SousCarre(sous_carre, this);
 				index++;
 				
 			}
@@ -79,7 +81,22 @@ public class Grille {
 	public MinResult trouverSousCarreAvecMinEl(ArrayList<Integer> indMinList) {
 		return GrilleUtilsSearch.trouverSousCarreAvecMinEl(sousCarreObjets, indMinList);
 	}
+	
+	public void updateCasesDeuxEl(Case caseEl) {
+		casesDeuxEl.add(caseEl);
+	}
+	
+	public void removeCasesDeuxEl(int row, int column) {
+		Case case1 = new Case(row, column); 
 		
+		int index = casesDeuxEl.indexOf(case1);
+		if(index != -1){
+			System.out.println("contains, index: " + index);
+			casesDeuxEl.remove(index);
+		} 
+		
+	
+	}
 	
 	
 	
