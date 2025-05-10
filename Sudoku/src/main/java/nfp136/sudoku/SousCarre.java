@@ -132,9 +132,7 @@ public class SousCarre {
 						} else {
 							row = 9;
 						}
-						//numSousCarreCourant=1, 2, 3 => row=3
-						//numSousCarreCourant=4, 5, 6 => row=6
-						//numSousCarreCourant=7, 8, 9 => row=9
+						
 						if(numSousCarreCourant %3 ==1) {
 							column = i-5;
 						} else if(numSousCarreCourant %3 ==2) {
@@ -143,11 +141,11 @@ public class SousCarre {
 							column = i+1;
 						}
 					}
-				System.out.println("row " + row + ", column:" + column);
+				//System.out.println("row " + row + ", column:" + column);
 				casesVides.add(new Case(row, column));
 			}
 		}
-		System.out.println(casesVides);
+		//System.out.println(casesVides);
 		return casesVides;
 	}
 	
@@ -159,7 +157,7 @@ public class SousCarre {
 		return contient;
 	}
 	
-	public void updateSousCarre(int ligne, int col, int el) {
+	public void updateSousCarre(int ligne, int col, int el) { 
 		int index;
 		if(ligne == numSousCarreCourant-2) {
 			index = col - 6;
@@ -176,7 +174,7 @@ public class SousCarre {
 		sousCarre[index-1] = el;
 		System.out.println("Updating sousCarré " + numSousCarreCourant + ": " + "with el " + el);
 		
-		parentGrille.removeCasesDeuxEl(ligne, col);
+		//parentGrille.removeCasesDeuxEl(ligne, col);
 	}
 	
 	@Override

@@ -7,7 +7,6 @@ public class GrillFillLigneUtils {
 	
 	public static void analyseEmptySpots(Grille grilleObj1, ArrayList<Case> emptySpots, int missingEl, ArrayList<Boolean> suiviElements) {
 		
-		//Ligne[] ligneObjets = grilleObj1.ligneObjets;
 		Colonne[] colonneObjets = grilleObj1.colonneObjets;
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
 		
@@ -80,8 +79,8 @@ public class GrillFillLigneUtils {
 			 SousCarre sousCarreObj1 = sousCarreObjets[sousCarre1 - 1];
 			 SousCarre sousCarreObj2 = sousCarreObjets[sousCarre2 - 1];
 			 
-			 System.out.println("sousCarreObj1 contient the missing el: " + sousCarreObj1.contientElement(missingEl));
-			 System.out.println("sousCarreObj2 contient the missing el: " + sousCarreObj2.contientElement(missingEl));
+			 System.out.println("sousCarreObj1 contient the missing el (never?): " + sousCarreObj1.contientElement(missingEl));
+			 System.out.println("sousCarreObj2 contient the missing el (never?): " + sousCarreObj2.contientElement(missingEl));
 
 			 
 			 if(!sousCarreObj1.contientElement(missingEl) && sousCarreObj2.contientElement(missingEl)) {
@@ -104,8 +103,13 @@ public class GrillFillLigneUtils {
 				 
 			 } else {
 				 for(int i = 0; i < suiviElements.size(); i++) {
-					 if(suiviElements.get(i) == false) emptySpots.get(i).updateValeursPossibles(missingEl);
-					 if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
+					 if(suiviElements.get(i) == false) {
+						 emptySpots.get(i).updateValeursPossibles(missingEl);
+						 System.out.println("emptySpot: " + emptySpots.get(i));
+						 System.out.println("valeur possible: " + missingEl);
+					 }
+						 
+					 //if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
 				 }
 				 
 				 

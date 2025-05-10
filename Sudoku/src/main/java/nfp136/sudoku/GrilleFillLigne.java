@@ -9,8 +9,7 @@ public class GrilleFillLigne {
 		boolean grillUpd = false;
 		int indMin = grilleObj1.trouverLigneAvecMinEl(indMinList).index;
 		if(indMin == -1) return new FillResult(-1, grillUpd);
-		/*grilleObj1.trouverColonneAvecMinEl();
-		grilleObj1.trouverSousCarreAvecMinEl();*/
+		
 		
 		System.out.println("ligneObj 0 : " + grilleObj1.ligneObjets[indMin]);
 		
@@ -54,31 +53,46 @@ public class GrilleFillLigne {
 					 ligneObjets[indMin].updateLigne(column, missing.get(j));
 					 colonneObjets[column-1].updateCol(indMin+1, missing.get(j));
 					 sousCarreObjets[sousCarre - 1].updateSousCarre(indMin+1, column,  missing.get(j));
-					 System.out.println(ligneObjets[indMin]);
-					 System.out.println(colonneObjets[column-1]);
-					 System.out.println(sousCarreObjets[sousCarre-1]);
+					 
 					 k = 0;
 					 grillUpd = true;
 					 continue outerLoop;
 					 
-				 } else if(falseCompteurCol == 2) {
+				 } /*else if(falseCompteurCol == 2) {
 					 
-					 boolean updated = GrillFillLigneUtils.update2El(suiviElements, emptySpots, grilleObj1, missing.get(j), indMin);
-						if(updated) {
-							k = 0;
-							grillUpd = true;
-							continue outerLoop;
-						}
-						 
+					 for(int i = 0; i < suiviElements.size(); i++) {
+						 if(suiviElements.get(i) == false) {
+							 emptySpots.get(i).updateValeursPossibles(missing.get(j));
+							 System.out.println("missingEl: " + missing.get(j));
+							 System.out.println("emptySpot: " + emptySpots.get(i));
+							 System.out.println("valeur possible: " + missing.get(j));
+						 }
+							 
+						 //if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
+					 }
 					 
-				 }
+					 
+					 
+				 }*/
 			 }
 			 
-			 if(emptySpots.size() > 0) System.out.println("Empty sp. poss val.: " + emptySpots.get(0).valeursPossibles);
+			 /*if(emptySpots.size() > 0) {
+				 for(int i = 0; i < emptySpots.size(); i++) {
+					 System.out.println("Empty sp. poss val.: " + emptySpots.get(i).valeursPossibles);
+				 }
+				 
+			 
+			 }*/
 		 
 		}
 		
 		return new FillResult(indMin, grillUpd);
 		
 	}
+	
+	public static FillResult fillElTry(Grille grilleObj1) {
+		return new FillResult(0, true);
+	}
+	
+	
 }

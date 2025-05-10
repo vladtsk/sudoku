@@ -27,14 +27,14 @@ public class GrilleUtilsSearch {
 		return new MinResult(minNb, ind);
 	}
 	
-	public static MinResult trouverColonneAvecMinEl(Colonne[] colonneObjets, ArrayList<Integer> indMinList) {
+	public static MinResult trouverColonneAvecMinEl(Colonne[] colonneObjets, ArrayList<Integer> indMinList ) { // 
 		int ind = -1; // l'index de la ligne avec le plus petit nombre d'éléments manquants 
 		int minNb = 100; // le plus petit nombre d'éléments manquants parmi toutes les lignes
 		int nb; // le nombre courant d'éléments manquants 
 		
 		for(int i=0; i < colonneObjets.length; i++) {
 			nb = 9 - colonneObjets[i].calculerNbElements();
-			if(nb < minNb && nb != 0 && nb < 4 ) {
+			if(nb < minNb && nb != 0 && nb < 9 && !indMinList.contains(i) ) {
 				minNb = nb;
 				ind = i;
 				
@@ -49,15 +49,15 @@ public class GrilleUtilsSearch {
 		return new MinResult(minNb, ind);
 	}
 	
-	public static MinResult trouverSousCarreAvecMinEl(SousCarre[] sousCarreObjets, ArrayList<Integer> indMinList) {
+	public static MinResult trouverSousCarreAvecMinEl(SousCarre[] sousCarreObjets, ArrayList<Integer> indMinList) { // 
 		int ind = -1; // l'index de la ligne avec le plus petit nombre d'éléments manquants 
 		int minNb = 100; // le plus petit nombre d'éléments manquants parmi toutes les lignes
 		int nb; // le nombre courant d'éléments manquants 
 		
-		System.out.println("ind " + ind);
+
 		for(int i=0; i < sousCarreObjets.length; i++) {
 			nb = 9-sousCarreObjets[i].calculerNbElements();
-			if(nb < minNb && nb != 0 && nb < 4 ) {
+			if(nb < minNb && nb != 0 && nb < 9 && !indMinList.contains(i) ) {
 				minNb = nb;
 				ind = i;
 				

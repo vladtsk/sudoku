@@ -48,7 +48,7 @@ public class GrillFillSousCarreUtils {
 		return falseCompteur;
 	}
 	
-	public static boolean update2El(ArrayList<Boolean> suiviElements,  ArrayList<Case> emptySpots, Grille grilleObj1, int missingEl,  int indMin) {
+	/*public static boolean update2El(ArrayList<Boolean> suiviElements,  ArrayList<Case> emptySpots, Grille grilleObj1, int missingEl,  int indMin) {
 		Ligne[] ligneObjets = grilleObj1.ligneObjets;
 		Colonne[] colonneObjets = grilleObj1.colonneObjets;
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
@@ -118,5 +118,5 @@ public class GrillFillSousCarreUtils {
 			 
 			 
 		return updated;
-	}
+	}*/
 }

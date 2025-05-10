@@ -82,7 +82,7 @@ public class Ligne {
 				casesVides.add(new Case(numLigneCourante, i+1));
 			}
 		}
-		System.out.println(casesVides);
+		
 		return casesVides;
 	}
 	
@@ -98,7 +98,7 @@ public class Ligne {
 		ligne[col-1] = el;
 		System.out.println("Updating ligne " + numLigneCourante + ": " + "with el " + el);
 		
-		parentGrille.removeCasesDeuxEl(numLigneCourante, col);
+		//parentGrille.removeCasesDeuxEl(numLigneCourante, col);
 		
 	}
 	

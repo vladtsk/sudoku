@@ -10,7 +10,7 @@ public class Grille {
 	Colonne[] colonneObjets;
 	SousCarre[] sousCarreObjets;
 	
-	ArrayList<Case> casesDeuxEl = new ArrayList<>(); // une liste qui contient des cases qui peuvent avoir deux valeurs possibles
+	//ArrayList<Case> casesDeuxEl = new ArrayList<>(); // liste des cases où une valeur donnée ne peut être placée qu'à deux endroits possibles
 	
 	public Grille(int[][] gr) {
 			
@@ -70,23 +70,42 @@ public class Grille {
 	}
 	
 	
-	public MinResult trouverLigneAvecMinEl(ArrayList<Integer> indMinList) {
-		return GrilleUtilsSearch.trouverLigneAvecMinEl(ligneObjets, indMinList);
+	public MinResult trouverLigneAvecMinEl(ArrayList<Integer> indMinList ) { 
+		return GrilleUtilsSearch.trouverLigneAvecMinEl(ligneObjets, indMinList); 
 	}
 	
-	public MinResult trouverColonneAvecMinEl(ArrayList<Integer> indMinList) {
-		return GrilleUtilsSearch.trouverColonneAvecMinEl(colonneObjets, indMinList);
+	public MinResult trouverColonneAvecMinEl(ArrayList<Integer> indMinList) { 
+		return GrilleUtilsSearch.trouverColonneAvecMinEl(colonneObjets, indMinList); 
 	}
 	
-	public MinResult trouverSousCarreAvecMinEl(ArrayList<Integer> indMinList) {
-		return GrilleUtilsSearch.trouverSousCarreAvecMinEl(sousCarreObjets, indMinList);
+	public MinResult trouverSousCarreAvecMinEl(ArrayList<Integer> indMinList) { 
+		return GrilleUtilsSearch.trouverSousCarreAvecMinEl(sousCarreObjets, indMinList); 
 	}
 	
-	public void updateCasesDeuxEl(Case caseEl) {
+	/*public void updateCasesDeuxEl(Case caseEl) {
 		casesDeuxEl.add(caseEl);
+	}*/
+	
+	public MinAllResult findMinIndexAll() { // trouve l'indice min partout (ligne, colonne, sousCarre) 
+		
+		
+		ArrayList<Integer> indList = new ArrayList<>();
+		int indexMin;
+		
+		int indMinLigne = this.trouverLigneAvecMinEl(indList).index;
+		int indMinCol = this.trouverColonneAvecMinEl(indList).index;
+		int indMinSousCarre = this.trouverSousCarreAvecMinEl(indList).index;
+		
+		indexMin = indMinLigne;
+		if(indMinCol<indexMin) indexMin = indMinCol;
+		if(indMinSousCarre<indexMin) indexMin = indMinSousCarre; 
+		
+		if(indexMin == indMinLigne) return new MinAllResult(indexMin, "ligne");
+		else if(indexMin == indMinCol) return new MinAllResult(indexMin, "col");
+		else return new MinAllResult(indexMin, "sousCarre");
 	}
 	
-	public void removeCasesDeuxEl(int row, int column) {
+	/*public void removeCasesDeuxEl(int row, int column) {
 		Case case1 = new Case(row, column); 
 		
 		int index = casesDeuxEl.indexOf(case1);
@@ -96,8 +115,7 @@ public class Grille {
 		} 
 		
 	
-	}
-	
+	}*/	
 	
 	
 		

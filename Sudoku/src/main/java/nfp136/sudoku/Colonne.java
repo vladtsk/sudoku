@@ -99,7 +99,7 @@ public class Colonne {
 		colonne[ligne-1] = el;
 		System.out.println("Updating colonne " + numColonneCourante + ": " + "with el " + el);
 		
-		parentGrille.removeCasesDeuxEl(ligne, numColonneCourante);
+		//parentGrille.removeCasesDeuxEl(ligne, numColonneCourante);
 	}
 	
 	@Override
