@@ -13,13 +13,14 @@ public class SousCarre {
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
 	
-	Grille parentGrille;
+	//Grille parentGrille;
 
-	public SousCarre(int[] sousCarre, Grille parentGrille) {
+	public SousCarre(int[] sousCarre) {
 		this.sousCarre = sousCarre;
-		this.parentGrille = parentGrille;
+				//Arrays.copyOf(sousCarre, sousCarre.length);
 		
-		sousCarreCompteur++;
+		
+		sousCarreCompteur = sousCarreCompteur%9 + 1;
 		numSousCarreCourant = sousCarreCompteur;
 		
 		for(int num : nums) {
@@ -37,9 +38,9 @@ public class SousCarre {
 		} 
 	}
 	
-	public SousCarre(int[] sousCarre) {
+	/*public SousCarre(int[] sousCarre) {
 		this(sousCarre, null);
-	}
+	}*/
 	
 	public int calculerNbElements() {
 		int nb_el = 0;

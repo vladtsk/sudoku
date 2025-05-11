@@ -7,10 +7,10 @@ public class Case {
 
 	int ligne;
 	int colonne;
-	int value;
+	int tempValue;
 	int sousCarre;
 	
-	ArrayList<Integer> valeursPossibles = new ArrayList<>();
+	ArrayList<Integer> valeursInterdites = new ArrayList<>();
 	
 	//private int[] forbiddenElements;
 	
@@ -41,26 +41,26 @@ public class Case {
 		
 	}
 	
-	public ArrayList<Integer> getValeursPossibles() {
-		return valeursPossibles;
+	public ArrayList<Integer> getValeursInterdites() {
+		return valeursInterdites;
 	}
 	
-	public void updateValeursPossibles(int el) { // ArrayList<Integer> list
+	public void updateValeursInterdites(int el) { // ArrayList<Integer> list
 		/*for(int el : list) {
 			valeursPossibles.add(el);
 		}*/
 		
-		if(!valeursPossibles.contains(el)) valeursPossibles.add(el);
+		if(!valeursInterdites.contains(el)) valeursInterdites.add(el);
 		
 		
-		System.out.println("Updating valeursPossibles with " + el);
+		System.out.println("Updating valeursInterdites with " + el);
 	}
 	
-	public void removeValeurPossible(int el) {
-		valeursPossibles.remove(el);
+	public void removeValeursInterdites(int el) {
+		valeursInterdites.remove(el);
 		
 		
-		System.out.println("Removing from valeursPossibles: " + el);
+		System.out.println("Removing from valeursInterdites: " + el);
 	}
 	
 	

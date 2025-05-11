@@ -2,6 +2,7 @@ package nfp136.sudoku;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class GrilleFillSousCarre {
 		
@@ -44,7 +45,7 @@ public class GrilleFillSousCarre {
 				 System.out.println("suivi" + suiviElements);
 				 System.out.println("nb of false: " + falseCompteurCol);
 				 
-				 if(missing.size() == 1 && falseCompteurCol == 0) throw new Error("Cannot update element"); 
+				 if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element"); 
 				 
 				 if(falseCompteurCol == 1) {
 					 int index = suiviElements.indexOf(false);
@@ -56,9 +57,9 @@ public class GrilleFillSousCarre {
 					 colonneObjets[colonne - 1].updateCol(ligne, missing.get(j));
 					 ligneObjets[ligne-1].updateLigne(colonne, missing.get(j));
 					 sousCarreObjets[indMin].updateSousCarre(ligne, colonne,  missing.get(j));
-					 System.out.println(ligneObjets[ligne-1]);
-					 System.out.println(colonneObjets[colonne-1]);
-					 System.out.println(sousCarreObjets[indMin]);
+					 //System.out.println(ligneObjets[ligne-1]);
+					 //System.out.println(colonneObjets[colonne-1]);
+					 //System.out.println(sousCarreObjets[indMin]);
 					 k = 0;
 					 grillUpd = true;
 					 continue outerLoop;
@@ -93,5 +94,76 @@ public class GrilleFillSousCarre {
 		return new FillResult(indMin, grillUpd);
 		//return indMin;
 		
+	}
+	
+	
+	public static boolean fillElTry(Stack<Grille> grilleStack, int index, Stack<Case> tempEls) {
+		Grille grilleObj1 = grilleStack.peek(); 
+				
+		boolean grillUpd = false;
+		Ligne[] ligneObjets = grilleObj1.ligneObjets;
+		Colonne[] colonneObjets = grilleObj1.colonneObjets;
+		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
+		
+		ArrayList<Integer> missing = sousCarreObjets[index].getElementsManquants();
+		
+		System.out.println("missing: " + missing);
+		
+		ArrayList<Case> emptySpots = sousCarreObjets[index].getCasesVides();
+		
+		 //for(int j = 0; j < missing.size(); j++) {
+		int j = 0;	 
+		System.out.println("El. " + missing.get(j));
+			 
+			 ArrayList<Boolean> suiviElements = new ArrayList<>(); 
+			 int falseCompteurCol = 0; 
+			 
+			 GrillFillSousCarreUtils.analyseEmptySpots(ligneObjets, colonneObjets, emptySpots, missing.get(j), suiviElements);
+			 falseCompteurCol = GrillFillSousCarreUtils.calculateFalseEls(suiviElements);
+			 
+			 System.out.println("suivi" + suiviElements);
+			 System.out.println("nb of false: " + falseCompteurCol);
+			 
+			 if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element  in fillElTry of GrillFillSousCarre"); 
+			 
+			 if(falseCompteurCol != 0) {
+				 
+				 Grille newGrid = new Grille(grilleObj1.gr);
+				 
+				 int ind = suiviElements.indexOf(false);
+				 
+				 int ligne = emptySpots.get(ind).ligne;
+				 int colonne = emptySpots.get(ind).colonne;
+				 
+				 Case newTempCase = new Case(ligne, colonne);
+				 newTempCase.tempValue = missing.get(j);
+				 tempEls.push(newTempCase);
+				 
+				 System.out.println("tempEl last: " + tempEls.peek());
+				 
+				 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne + ", col " + colonne + ", sousCarré " + (index+1));
+				 
+				 newGrid.colonneObjets[colonne - 1].updateCol(ligne, missing.get(j));
+				 newGrid.ligneObjets[ligne-1].updateLigne(colonne, missing.get(j));
+				 newGrid.sousCarreObjets[index].updateSousCarre(ligne, colonne,  missing.get(j));
+				 
+				 
+				 System.out.println("pushing newGrid: " + newGrid);
+				 grilleStack.push(newGrid);
+				 grillUpd = true;
+				 //break;
+				 
+				 
+			 }
+			 
+			 
+		 //}
+		 
+	
+		 
+		 
+		 
+		 return grillUpd;
+		 
 	}
 }

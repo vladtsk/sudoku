@@ -15,8 +15,12 @@ public class GrillFillLigneUtils {
 			 int col = emptySpots.get(i).colonne;
 			 int sousCarre = emptySpots.get(i).sousCarre;
 			 
-			 System.out.println("col " + col); 
-			 System.out.println("sousCarre " + sousCarre); 
+			 ArrayList<Integer> forbiddenVals = emptySpots.get(i).valeursInterdites;
+			 boolean forbiddenContains = forbiddenVals.contains(missingEl);
+			 
+			 System.out.println("forbiddenVals: " + forbiddenVals); 
+			 System.out.println("forbidden contains: " + forbiddenContains);
+			 
 			 
 			 Colonne colObj = colonneObjets[col-1];
 			 boolean colContains = colObj.contientElement(missingEl);
@@ -24,7 +28,7 @@ public class GrillFillLigneUtils {
 			 SousCarre sousCarreObj = sousCarreObjets[sousCarre-1];
 			 boolean sousCarreContains = sousCarreObj.contientElement(missingEl);
 			 
-			 suiviElements.add(colContains || sousCarreContains);
+			 suiviElements.add(colContains || sousCarreContains || forbiddenContains);
 			 
 			 
 			 System.out.println("Col "+ col + " contient el " + missingEl + " : " + colContains);
@@ -101,7 +105,7 @@ public class GrillFillLigneUtils {
 				 
 				 updated = true;
 				 
-			 } else {
+			 } /*else {
 				 for(int i = 0; i < suiviElements.size(); i++) {
 					 if(suiviElements.get(i) == false) {
 						 emptySpots.get(i).updateValeursPossibles(missingEl);
@@ -114,7 +118,7 @@ public class GrillFillLigneUtils {
 				 
 				 
 				 
-			 }
+			 }*/
 			 
 		return updated;
 	}

@@ -1,11 +1,17 @@
 package nfp136.sudoku;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Solver {
 	
-	public static void solve(Grille grid) {
+	static Stack<Case> tempEls = new Stack<>();
+	
+	public static void solveOrganically(Stack<Grille> stack) {
+		Grille grid = stack.peek();
 		ArrayList<Integer> indMinList = new ArrayList<>();
+		
+		
 		
 		
 		FillResult res;
@@ -17,6 +23,7 @@ public class Solver {
 		
 		System.out.println("Starting");
 		
+		System.out.println(stack.peek());
 		
 		while(true) {
 			updLigne = false;
@@ -57,15 +64,40 @@ public class Solver {
 			if(!updLigne && !updCol && !updSousCarre) break;
 		}
 		
+	}
+	
+	public static void insertCandidateValue(Stack<Grille> stack) {
+		Grille grid = stack.peek();
+		
+		System.out.println("stack top: " + stack.peek());
+		
+		ArrayList<MinAllResult> suiviIndMin = new ArrayList<>();
+		
+		MinAllResult indMinRes  = grid.findMinIndexAll();
+		
+		while(suiviIndMin.contains(indMinRes)) {
+			indMinRes  = grid.findMinIndexAll();
+		}		
+		
+		suiviIndMin.add(indMinRes);
+		
+		if(indMinRes.index == -1) throw new UnsolvableAlternativePathException("No min element found");
+		
 		 
-		 
-		 
-		 MinAllResult indMinRes  = grid.findMinIndexAll();
 		 System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);
 		 
 		 if((indMinRes.type).equals("ligne")){
+			 System.out.println("ligne!");
+			 GrilleFillLigne.fillElTry(stack, indMinRes.index, tempEls);
 			 
-			 GrilleFillLigne.fillElTry(grid);
+		 } else if((indMinRes.type).equals("col")) {
+			 System.out.println("col!");
+			 GrilleFillColonne.fillElTry(stack, indMinRes.index, tempEls);
+			 
+		 } else {
+			 System.out.println("sousCarre!");
+			 GrilleFillSousCarre.fillElTry(stack, indMinRes.index, tempEls);
+			 
 		 }
 	}
 }

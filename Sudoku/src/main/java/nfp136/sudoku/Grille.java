@@ -10,13 +10,16 @@ public class Grille {
 	Colonne[] colonneObjets;
 	SousCarre[] sousCarreObjets;
 	
-	//ArrayList<Case> casesDeuxEl = new ArrayList<>(); // liste des cases où une valeur donnée ne peut être placée qu'à deux endroits possibles
 	
 	public Grille(int[][] gr) {
 			
 		this.gr = gr;
+		/*this.gr = new int[9][9];
+		for (int i = 0; i < 9; i++) {
+		    this.gr[i] = Arrays.copyOf(gr[i], 9);
+		}*/
 		
-		ligneObjets = new Ligne[]{new Ligne(gr[0], this), new Ligne(gr[1], this), new Ligne(gr[2], this), new Ligne(gr[3], this), new Ligne(gr[4], this), new Ligne(gr[5], this), new Ligne(gr[6], this), new Ligne(gr[7], this), new Ligne(gr[8], this)};
+		ligneObjets = new Ligne[]{new Ligne(gr[0]), new Ligne(gr[1]), new Ligne(gr[2]), new Ligne(gr[3]), new Ligne(gr[4]), new Ligne(gr[5]), new Ligne(gr[6]), new Ligne(gr[7]), new Ligne(gr[8])};
 		
 		colonneObjets = new Colonne[9];
 		
@@ -28,7 +31,7 @@ public class Grille {
 				colonne[j] = ligneObjets[j].getLigne()[i];
 			}
 			
-			colonneObjets[i] = new Colonne(colonne, this);
+			colonneObjets[i] = new Colonne(colonne);
 			//System.out.println(Arrays.toString(colonneObjets[i].getColonne()));
 			
 
@@ -56,7 +59,7 @@ public class Grille {
 					  
 				}
 				
-				sousCarreObjets[index] = new SousCarre(sous_carre, this);
+				sousCarreObjets[index] = new SousCarre(sous_carre);
 				index++;
 				
 			}
@@ -82,26 +85,52 @@ public class Grille {
 		return GrilleUtilsSearch.trouverSousCarreAvecMinEl(sousCarreObjets, indMinList); 
 	}
 	
-	/*public void updateCasesDeuxEl(Case caseEl) {
-		casesDeuxEl.add(caseEl);
-	}*/
+	public boolean estComplet() {
+		
+		boolean estComplet = false;
+		int nbEl;
+		
+		for(int i = 0; i < this.ligneObjets.length; i++) {
+			
+			nbEl = this.ligneObjets[i].calculerNbElements();
+			if(nbEl<9) return false;
+			
+		}
+		estComplet = true;
+		
+		return estComplet;
+	}
 	
 	public MinAllResult findMinIndexAll() { // trouve l'indice min partout (ligne, colonne, sousCarre) 
 		
 		
 		ArrayList<Integer> indList = new ArrayList<>();
 		int indexMin;
+		int nbElMin;
 		
-		int indMinLigne = this.trouverLigneAvecMinEl(indList).index;
+		/*int indMinLigne = this.trouverLigneAvecMinEl(indList).index;
 		int indMinCol = this.trouverColonneAvecMinEl(indList).index;
-		int indMinSousCarre = this.trouverSousCarreAvecMinEl(indList).index;
+		int indMinSousCarre = this.trouverSousCarreAvecMinEl(indList).index;*/
 		
-		indexMin = indMinLigne;
-		if(indMinCol<indexMin) indexMin = indMinCol;
-		if(indMinSousCarre<indexMin) indexMin = indMinSousCarre; 
 		
-		if(indexMin == indMinLigne) return new MinAllResult(indexMin, "ligne");
-		else if(indexMin == indMinCol) return new MinAllResult(indexMin, "col");
+		MinResult indMinLigneRes = this.trouverLigneAvecMinEl(indList);
+		MinResult indMinColRes = this.trouverColonneAvecMinEl(indList);
+		MinResult indMinSousCarreRes = this.trouverSousCarreAvecMinEl(indList);
+		
+		indexMin = indMinLigneRes.index;
+		nbElMin = indMinLigneRes.nb;
+		if((indMinColRes.nb<nbElMin) || (indexMin == -1)) {
+			nbElMin = indMinColRes.nb;
+			indexMin = indMinColRes.index;
+		};
+			
+		if((indMinSousCarreRes.nb<nbElMin) || (indexMin == -1)) {
+			nbElMin = indMinSousCarreRes.nb;
+			indexMin = indMinSousCarreRes.index;
+		}; 
+		
+		if(indexMin == indMinLigneRes.index) return new MinAllResult(indexMin, "ligne");
+		else if(indexMin == indMinColRes.index) return new MinAllResult(indexMin, "col");
 		else return new MinAllResult(indexMin, "sousCarre");
 	}
 	

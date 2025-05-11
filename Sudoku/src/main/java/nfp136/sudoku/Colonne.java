@@ -13,12 +13,13 @@ public class Colonne {
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
 	
-	Grille parentGrille;
+	//Grille parentGrille;
 
-	public Colonne(int[] colonne, Grille parentGrille) {
+	public Colonne(int[] colonne) {
 		this.colonne = colonne;
-		this.parentGrille = parentGrille;
-		colonneCompteur++;
+				//Arrays.copyOf(colonne, colonne.length);
+		
+		colonneCompteur=colonneCompteur%9+1;
 		numColonneCourante = colonneCompteur;
 		
 		for(int num : nums) {
@@ -36,9 +37,9 @@ public class Colonne {
 		} 
 	}
 	
-	public Colonne(int[] colonne) {
+	/*public Colonne(int[] colonne) {
 		this(colonne, null);
-	}
+	}*/
 	
 	public int calculerNbElements() {
 		int nb_el = 0;

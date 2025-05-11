@@ -12,15 +12,15 @@ public class Ligne {
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
 	
-	private Grille parentGrille;
+	//private Grille parentGrille;
 
-	public Ligne(int[] ligne, Grille parentGrille) {
+	public Ligne(int[] ligne) {
 		this.ligne = ligne;
-		this.parentGrille = parentGrille;
-		ligneCompteur ++;
+				//Arrays.copyOf(ligne, ligne.length);
+		
+		ligneCompteur =  ligneCompteur%9 + 1;
 		numLigneCourante = ligneCompteur;
-		//System.out.println("numLigneCourante");
-		//System.out.println(numLigneCourante);
+		
 		
 		for(int num : nums) {
 			boolean found = false;
@@ -37,9 +37,9 @@ public class Ligne {
 		} 
 	}
 	
-	public Ligne(int[] ligne) {
+	/*public Ligne(int[] ligne) {
 		this(ligne, null);
-	}
+	}*/
 	
 	public int[] getLigne() {
 		return ligne;

@@ -7,7 +7,6 @@ public class GrillFillSousCarreUtils {
 	
 	public static void analyseEmptySpots(Ligne[] ligneObjets, Colonne[] colonneObjets, ArrayList<Case> emptySpots, int missingEl, ArrayList<Boolean> suiviElements) {
 		
-		System.out.println("suiviEls: " + suiviElements);
 		System.out.println("missingEl: " + missingEl);
 		System.out.println("emptySpots: " + emptySpots);
 		
@@ -15,10 +14,12 @@ public class GrillFillSousCarreUtils {
 			 
 			 int ligne = emptySpots.get(i).ligne;
 			 int colonne = emptySpots.get(i).colonne;
-			 //int sousCarre = emptySpots.get(i).sousCarre;
+
+			 ArrayList<Integer> forbiddenVals = emptySpots.get(i).valeursInterdites;
+			 boolean forbiddenContains = forbiddenVals.contains(missingEl);
 			 
-			 System.out.println("ligne " + ligne); 
-			 System.out.println("colonne " + colonne); 
+			 System.out.println("forbiddenVals: " + forbiddenVals); 
+			 System.out.println("forbidden contains: " + forbiddenContains);
 			 
 			 Ligne ligneObj = ligneObjets[ligne-1];
 			 Colonne colonneObj = colonneObjets[colonne-1];
@@ -26,14 +27,14 @@ public class GrillFillSousCarreUtils {
 			 boolean colonneContains = colonneObj.contientElement(missingEl);
 			 
 			 
-			 suiviElements.add((ligneContains || colonneContains));
+			 suiviElements.add((ligneContains || colonneContains || forbiddenContains));
 			 
 			 
 			 System.out.println("ligneObj obj " + ligneObj);
 			 System.out.println("colonneObj obj " + colonneObj);
 			 System.out.println("Ligne "+ ligne + " contient el " + missingEl + " : " + ligneContains);
 			 System.out.println("Colonne "+ colonne + " contient el " + missingEl + " : " + colonneContains);
-			 System.out.println("One or the other contains it: " +(ligneContains || colonneContains));
+			 System.out.println("One or the other contains it: " + (ligneContains || colonneContains));
 			 
 			 
 		 }

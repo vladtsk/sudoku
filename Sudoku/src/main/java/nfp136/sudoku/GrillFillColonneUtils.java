@@ -9,7 +9,6 @@ public class GrillFillColonneUtils {
 		
 		
 		Ligne[] ligneObjets = grilleObj1.ligneObjets;
-		//Colonne[] colonneObjets = grilleObj1.colonneObjets;
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
 		
 		for(int i = 0; i < emptySpots.size(); i++) {
@@ -17,8 +16,12 @@ public class GrillFillColonneUtils {
 			 int ligne = emptySpots.get(i).ligne;
 			 int sousCarre = emptySpots.get(i).sousCarre;
 			 
-			 System.out.println("ligne " + ligne); 
-			 System.out.println("sousCarre " + sousCarre); 
+			 ArrayList<Integer> forbiddenVals = emptySpots.get(i).valeursInterdites;
+			 boolean forbiddenContains = forbiddenVals.contains(missingEl);
+			 
+			 System.out.println("forbiddenVals: " + forbiddenVals); 
+			 System.out.println("forbidden contains: " + forbiddenContains);
+			 
 			 
 			 Ligne ligneObj = ligneObjets[ligne-1];
 			 boolean ligneContains = ligneObj.contientElement(missingEl);
@@ -26,7 +29,7 @@ public class GrillFillColonneUtils {
 			 SousCarre sousCarreObj = sousCarreObjets[sousCarre-1];
 			 boolean sousCarreContains = sousCarreObj.contientElement(missingEl);
 			 
-			 suiviElements.add(ligneContains || sousCarreContains);
+			 suiviElements.add(ligneContains || sousCarreContains || forbiddenContains);
 			 
 			 
 			 System.out.println("ligneObj obj " + ligneObj);
