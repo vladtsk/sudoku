@@ -19,6 +19,9 @@ public class GrillFillLigneUtils {
 			 System.out.println("ligne: " + ligne);
 			 
 			 Case c = new Case(ligne, col);
+			 
+			 System.err.println(grilleObj1.forbiddenElCases);
+			 
 			 boolean containsCase = grilleObj1.forbiddenElCases.contains(c);
 			 boolean forbiddenContains = false;
 			 

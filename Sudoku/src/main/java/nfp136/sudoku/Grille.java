@@ -2,6 +2,7 @@ package nfp136.sudoku;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Grille {
 	
@@ -192,22 +193,7 @@ public class Grille {
 		
 	}
 	
-	
-	
-	
-	
-	/*public void removeCasesDeuxEl(int row, int column) {
-		Case case1 = new Case(row, column); 
-		
-		int index = casesDeuxEl.indexOf(case1);
-		if(index != -1){
-			System.out.println("contains, index: " + index);
-			casesDeuxEl.remove(index);
-		} 
-		
-	
-	}*/	
-	
+
 	
 	public boolean allIndicesTried() {
 	    // Vérifie si 9 indices pour chaque type ont été essayés
@@ -220,6 +206,28 @@ public class Grille {
 		this.triedIndListSousCarre.clear();
 	}
 	
+	public void updateForbiddenElCases(Case failedCase, Stack<Grille> grillStack) {
+		int indexCase = grillStack.peek().forbiddenElCases.indexOf(failedCase);
+		
+		if(indexCase == -1) {
+			//failedCase.tempValue = 0;
+			grillStack.peek().forbiddenElCases.add(failedCase);
+		} else {
+			System.out.println(failedCase + " already exists in forbiddenElCases");
+			grillStack.peek().forbiddenElCases.get(indexCase).updateValeursInterdites(failedCase.tempValue);
+			grillStack.peek().forbiddenElCases.get(indexCase).tempValue = 0;
+		}
+	}
+	
+	/*
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) return true;
+		if(obj == null || this.getClass()!= obj.getClass()) return false;
+		
+		Case other = (Case) obj;
+		return other.colonne == this.colonneObjets && other.ligne == this.ligne;
+	}*/
 		
 	@Override
 	public String toString() {

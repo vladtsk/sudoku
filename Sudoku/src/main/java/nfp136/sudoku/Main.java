@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Main {
 
 	public static void main(String[] args) {
-		/*
+		/* cannot solve
 		int[] row1 = {0, 0, 0, 0, 0, 0, 0, 1, 2};
 		int[] row2 = {0, 0, 0, 0, 0, 0, 0, 0, 3};
 		int[] row3 = {0, 0, 2, 3, 0, 0, 4, 0, 0};
@@ -19,7 +19,7 @@ public class Main {
 		int[] row9 = {4, 7, 0, 0, 0, 6, 0, 0, 0};
 		*/
 		//
-		
+		/*
 		int[] row1 = {5, 3, 0, 0, 7, 0, 0, 0, 0};
 		int[] row2 = {6, 0, 0, 1, 0, 0, 0, 0, 0};//195
 		int[] row3 = {0, 9, 8, 0, 0, 0, 0, 6, 0};
@@ -30,20 +30,34 @@ public class Main {
 		int[] row8 = {0, 0, 0, 4, 0, 9, 0, 0, 5};//419
 		int[] row9 = {0, 0, 0, 0, 8, 0, 0, 7, 9}; 
 		
-		
-		
-		
-		/*int[] rowEx1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-		int[] rowEx2 = {0, 6, 0, 0, 0, 0, 0, 3, 0};
-		int[] rowEx3 = {0, 7, 0, 0, 0, 0, 0, 4, 0};
-		int[] rowEx4 = {7, 8, 9, 1, 2, 3, 4, 5, 6};
-		int[] rowEx5 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		int[] rowEx6 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		int[] rowEx7 = {4, 5, 6, 7, 8, 9, 1, 2, 3};
-		int[] rowEx8 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		int[] rowEx9 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-
 		*/
+		
+		
+		int[] row1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+		int[] row2 = {0, 6, 0, 0, 0, 0, 0, 3, 0};
+		int[] row3 = {0, 7, 0, 0, 0, 0, 0, 4, 0};
+		int[] row4 = {7, 8, 9, 1, 2, 3, 4, 5, 6};
+		int[] row5 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int[] row6 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int[] row7 = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+		int[] row8 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int[] row9 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+		
+		/*
+		int[] row1 = {0,0,3,0,2,0,6,0,0};
+		int[] row2 = {9,0,0,3,0,5,0,0,1};
+		int[] row3 = {0,0,1,8,0,6,4,0,0};
+		int[] row4 = {0,0,8,1,0,2,9,0,0};
+		int[] row5 = {7,0,0,0,0,0,0,0,8};
+		int[] row6 = {0,0,6,7,0,8,2,0,0};
+		int[] row7 = {0,0,2,6,0,9,5,0,0};
+		int[] row8 = {8,0,0,2,0,3,0,0,9};
+		int[] row9 = {0,0,5,0,1,0,3,0,0};
+*/
+
+		
+
 
 
 
@@ -53,6 +67,8 @@ public class Main {
 		
 		System.out.println(Arrays.deepToString(grille1));
 		Grille grilleObj1 = new Grille(grille1);
+		
+		ArrayList<Grille> solutions = new ArrayList<>(); 
 		
 		Stack<Grille> grillStack = new Stack<>();
 		grillStack.push(grilleObj1);
@@ -77,11 +93,11 @@ public class Main {
 				
 				
 				if(!Solver.tempEls.isEmpty() && Solver.tempEls.peek().ligneNextUpd != 0) {
-					Case c = Solver.tempEls.peek();
+					Case failedCase  = Solver.tempEls.pop();
 					
-					grillStack.peek().updateGrille(c.ligneNextUpd, c.colNextUpd, c.sousCarreNextUpd, c.tempValue);
+					grillStack.peek().updateGrille(failedCase.ligneNextUpd, failedCase.colNextUpd, failedCase.sousCarreNextUpd, failedCase.tempValue);
 					
-					Solver.tempEls.pop();
+					//Solver.tempEls.pop();
 					//Solver.tempEls.peek().ligneNextUpd = 0;
 					
 				} else if(!Solver.tempEls.isEmpty()) {
@@ -117,25 +133,30 @@ public class Main {
 				
 				if(!Solver.tempEls.isEmpty()) {
 				
-					Case c = Solver.tempEls.peek();
-					System.out.println(c.ligne + " " + c.colonne + " tempValue: " + c.tempValue + " valeursInterdites: "+ c.valeursInterdites);
+					Case failedCase = Solver.tempEls.peek();
+					System.out.println(failedCase.ligne + " " + failedCase.colonne + " tempValue: " + failedCase.tempValue + " valeursInterdites: "+ failedCase.valeursInterdites);
 					
-					c.updateValeursInterdites(c.tempValue);
+					failedCase.updateValeursInterdites(failedCase.tempValue);
 					
-					System.out.println(c.ligne + " " + c.colonne + " " + c.tempValue);
+					System.out.println(failedCase.ligne + " " + failedCase.colonne + " " + failedCase.tempValue);
 					
 					
 					grillStack.pop();
-					int indexCase = grillStack.peek().forbiddenElCases.indexOf(c);
+					
+					grillStack.peek().updateForbiddenElCases(failedCase, grillStack);
+					
+					/*int indexCase = grillStack.peek().forbiddenElCases.indexOf(failedCase);
+					
+					
 					
 					if(indexCase == -1) {
-						c.tempValue = 0;
-						grillStack.peek().forbiddenElCases.add(c);
+						failedCase.tempValue = 0;
+						grillStack.peek().forbiddenElCases.add(failedCase);
 					} else {
-						System.out.println(c + " already exists in forbiddenElCases");
-						grillStack.peek().forbiddenElCases.get(indexCase).updateValeursInterdites(c.tempValue);
+						System.out.println(failedCase + " already exists in forbiddenElCases");
+						grillStack.peek().forbiddenElCases.get(indexCase).updateValeursInterdites(failedCase.tempValue);
 						grillStack.peek().forbiddenElCases.get(indexCase).tempValue = 0;
-					}
+					}*/
 					
 						
 					
@@ -149,7 +170,6 @@ public class Main {
 					System.out.println("temp val: " + Solver.tempEls);
 					continue;
 					
-					//System.out.println("toUpdNext false? " + Solver.tempEls.peek().toUpdateNext);
 					
 				
 					
@@ -168,10 +188,73 @@ public class Main {
 		}
 		
 		
+		if(grillStack.peek().estComplet()) solutions.add(grillStack.peek());
+		System.out.println("Solution 1: " + solutions.get(0));
+		System.out.println(Solver.tempEls);
 		
-	
 		
-		 
+		// recherche d'une solution alternative
+		
+		System.err.println("Loop check: grillStack complete = " + grillStack.peek().estComplet());
+		System.err.println("Loop check: tempEls empty = " + Solver.tempEls.isEmpty());
+		
+		
+		if(!grillStack.isEmpty()) grillStack.pop();
+		int counter = 0;
+		
+		if(grillStack.isEmpty()) return;
+		while(!grillStack.peek().estComplet() && !Solver.tempEls.isEmpty()) {
+			
+			counter++;
+			if(counter > 100) break;
+			
+			System.out.println(grillStack);
+			System.out.println(Solver.tempEls);
+			System.out.println(Solver.tempEls.peek().tempValue);
+			System.out.println(grillStack.peek().forbiddenElCases);
+			
+			
+			try {
+				Case caseInterdite = Solver.tempEls.pop();
+				//grillStack.pop();
+				
+				System.err.println("caseInterdite" + caseInterdite);
+				
+				grillStack.peek().forbiddenElCases.add(caseInterdite);
+				Solver.solveOrganically(grillStack);
+				if(grillStack.peek().estComplet()) solutions.add(grillStack.peek());
+				
+				//Solver.insertCandidateValue(grillStack);
+				//Solver.solveOrganically(grillStack);
+				
+				
+				int iterations=0;
+				while(!grillStack.peek().estComplet()) {
+					Solver.insertCandidateValue(grillStack);
+					Solver.solveOrganically(grillStack);
+					
+					iterations++;
+					if(iterations > 100) throw new UnsolvablePuzzleException("Too many iterations.");
+				}
+				
+			} catch(UnsolvablePathException e) { 
+				
+				grillStack.pop();
+				if (grillStack.isEmpty()) return;
+				continue;
+				
+				
+			}
+			
+		}
+		
+			
+			
+			for (int i = 0; i < solutions.size(); i++) {
+			    System.out.println("Solution " + (i + 1) + ": " + solutions.get(i));
+			}
+
+		
 		 
 	} 
 }

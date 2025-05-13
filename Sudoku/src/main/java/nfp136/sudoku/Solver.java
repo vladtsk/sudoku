@@ -120,5 +120,12 @@ public class Solver {
 		
 	}
 	
+	/*public static void findAlternativeSolution(Stack<Grille> stack) {
+		
+		System.out.println(stack.peek()); 
+		System.out.println(tempEls());
+		
+	}*/
+	
 	
 }
