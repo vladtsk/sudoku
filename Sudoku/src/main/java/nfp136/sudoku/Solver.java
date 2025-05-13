@@ -6,8 +6,12 @@ import java.util.Stack;
 public class Solver {
 	
 	static Stack<Case> tempEls = new Stack<>();
+	//static ArrayList<Case> forbiddenElCases = new ArrayList<>();
+	//static ArrayList<MinAllResult> triedMin = new ArrayList<>(); // des valeurs minimum déjà essayé dans insertCandidateValue
 	
-	public static void solveOrganically(Stack<Grille> stack) {
+	
+	
+	public static void solveOrganically(Stack<Grille> stack) { 
 		Grille grid = stack.peek();
 		ArrayList<Integer> indMinList = new ArrayList<>();
 		
@@ -23,9 +27,10 @@ public class Solver {
 		
 		System.out.println("Starting");
 		
-		System.out.println(stack.peek());
+		//System.out.println(stack.peek());
 		
-		while(true) {
+		//while(!updLigne && !updCol && !updSousCarre) 
+		do {
 			updLigne = false;
 			updCol = false;
 			updSousCarre = false;
@@ -61,43 +66,59 @@ public class Solver {
 			
 			System.out.println(grid);
 			System.out.println(updLigne + " " + updCol + " "+ updSousCarre);
-			if(!updLigne && !updCol && !updSousCarre) break;
-		}
+			
+			//if(!updLigne && !updCol && !updSousCarre) break;
+		} while (updLigne || updCol || updSousCarre);
 		
 	}
+	
 	
 	public static void insertCandidateValue(Stack<Grille> stack) {
 		Grille grid = stack.peek();
 		
 		System.out.println("stack top: " + stack.peek());
 		
-		ArrayList<MinAllResult> suiviIndMin = new ArrayList<>();
 		
-		MinAllResult indMinRes  = grid.findMinIndexAll();
+		//ArrayList<MinAllResult> suiviIndMin = new ArrayList<>();
 		
-		while(suiviIndMin.contains(indMinRes)) {
-			indMinRes  = grid.findMinIndexAll();
-		}		
 		
-		suiviIndMin.add(indMinRes);
-		
-		if(indMinRes.index == -1) throw new UnsolvableAlternativePathException("No min element found");
-		
-		 
-		 System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);
-		 
-		 if((indMinRes.type).equals("ligne")){
-			 System.out.println("ligne!");
-			 GrilleFillLigne.fillElTry(stack, indMinRes.index, tempEls);
+		boolean updateSuccess = false; //variable pour suivre des mis à jour après fillElTry
+
+		while(!updateSuccess) {
+			MinAllResult indMinRes  = grid.findMinIndexAll();
+			
+			//int count = 0;
+			//while(suiviIndMin.contains(indMinRes)) {
+				//indMinRes  = grid.findMinIndexAll();
+				//count ++;
+				//if(count>100) throw new IllegalStateException("Exceeded maximum number of attempts to find the minIndex in insertCandidateValue");
+			//}		
+			
+			//suiviIndMin.add(indMinRes);
+			
+			
+			
+			if(indMinRes.index == -1) indMinRes = grid.findCandidateIndex();
+			if(indMinRes.index == -1) throw new IndexNotFoundException("No min element found");
 			 
-		 } else if((indMinRes.type).equals("col")) {
-			 System.out.println("col!");
-			 GrilleFillColonne.fillElTry(stack, indMinRes.index, tempEls);
+			 System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);
 			 
-		 } else {
-			 System.out.println("sousCarre!");
-			 GrilleFillSousCarre.fillElTry(stack, indMinRes.index, tempEls);
+			 switch(indMinRes.type) {
+			 case "ligne": 
+				 updateSuccess = GrilleFillLigne.fillElTry(stack, indMinRes.index);
+				 break;
+			 case "col":
+				 updateSuccess = GrilleFillColonne.fillElTry(stack, indMinRes.index);
+				 break;
+			 default: 
+				 updateSuccess = GrilleFillSousCarre.fillElTry(stack, indMinRes.index);
+				 
+			 }
 			 
-		 }
+			 
+		}
+		
 	}
+	
+	
 }

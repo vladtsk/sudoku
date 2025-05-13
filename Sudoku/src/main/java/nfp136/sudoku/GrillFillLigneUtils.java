@@ -15,10 +15,26 @@ public class GrillFillLigneUtils {
 			 int col = emptySpots.get(i).colonne;
 			 int sousCarre = emptySpots.get(i).sousCarre;
 			 
-			 ArrayList<Integer> forbiddenVals = emptySpots.get(i).valeursInterdites;
-			 boolean forbiddenContains = forbiddenVals.contains(missingEl);
+			 int ligne = emptySpots.get(i).ligne;
+			 System.out.println("ligne: " + ligne);
 			 
-			 System.out.println("forbiddenVals: " + forbiddenVals); 
+			 Case c = new Case(ligne, col);
+			 boolean containsCase = grilleObj1.forbiddenElCases.contains(c);
+			 boolean forbiddenContains = false;
+			 
+			 if(containsCase) {
+				 System.out.println("forbiddenElCases contains case: " + c);
+				 int index = grilleObj1.forbiddenElCases.indexOf(c);
+				 ArrayList<Integer> forbiddenVals = grilleObj1.forbiddenElCases.get(index).valeursInterdites;
+				 if(forbiddenVals.contains(missingEl)) forbiddenContains = true;
+				 
+				 System.out.println("forbiddenVals: " + forbiddenVals); 
+			 }
+			 
+			 //ArrayList<Integer> forbiddenVals = Solver.forbiddenElCases.get(i).valeursInterdites;
+			 //boolean forbiddenContains = forbiddenVals.contains(missingEl);
+			 
+			 
 			 System.out.println("forbidden contains: " + forbiddenContains);
 			 
 			 

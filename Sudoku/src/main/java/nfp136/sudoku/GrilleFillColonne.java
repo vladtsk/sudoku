@@ -7,6 +7,7 @@ import java.util.Stack;
 public class GrilleFillColonne {
 		
 	public static FillResult fillMinEl(Grille grilleObj1, ArrayList<Integer> indMinList) {
+		//Grille grilleObj1 = stack.peek();
 		boolean grillUpd = false;
 		
 		int indMin = grilleObj1.trouverColonneAvecMinEl(indMinList).index;
@@ -45,7 +46,10 @@ public class GrilleFillColonne {
 				 System.out.println("suivi" + suiviElements);
 				 System.out.println("nb of false: " + falseCompteurCol);
 				 
-				 if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element");
+				 if(missing.size() == 1 && falseCompteurCol == 0) {
+					 if(!Solver.tempEls.isEmpty()) throw new UnsolvablePathException("Cannot update element. Try another path");
+					 else throw new UnsolvablePuzzleException("Cannot update element. No more paths available.");
+				 }
 				 
 				 if(falseCompteurCol == 1) {
 					 int index = suiviElements.indexOf(false);
@@ -54,12 +58,13 @@ public class GrilleFillColonne {
 					 int sousCarre = emptySpots.get(index).sousCarre;
 					 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne + ", col " + (indMin+1) + ", sousCarré " + sousCarre);
 					 
-					 colonneObjets[indMin].updateCol(ligne, missing.get(j));
+					 /*colonneObjets[indMin].updateCol(ligne, missing.get(j));
 					 ligneObjets[ligne-1].updateLigne((indMin+1), missing.get(j));
 					 sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, (indMin+1),  missing.get(j));
-					 //System.out.println(ligneObjets[ligne-1]);
-					 //System.out.println(colonneObjets[indMin]);
-					 //System.out.println(sousCarreObjets[sousCarre-1]);
+					 */
+					 
+					 grilleObj1.updateGrille(ligne, (indMin+1), sousCarre, missing.get(j));
+					 
 					 k = 0;
 					 grillUpd = true;
 					 continue outerLoop;
@@ -96,7 +101,7 @@ public class GrilleFillColonne {
 		
 	}
 	
-	public static boolean fillElTry(Stack<Grille> grilleStack, int index, Stack<Case> tempEls) {
+	public static boolean fillElTry(Stack<Grille> grilleStack, int index) {
 		Grille grilleObj1 = grilleStack.peek(); 
 				
 		boolean grillUpd = false;
@@ -110,8 +115,8 @@ public class GrilleFillColonne {
 		 ArrayList<Case> emptySpots = colonneObjets[index].getCasesVides();
 		 
 	
-		 //for(int j = 0; j < missing.size(); j++) {
-		int j=0;	 
+		for(int j = 0; j < missing.size(); j++) {
+			 
 		 System.out.println("El. " + missing.get(j));
 			 
 			 ArrayList<Boolean> suiviElements = new ArrayList<>(); 
@@ -123,36 +128,73 @@ public class GrilleFillColonne {
 			 System.out.println("suivi" + suiviElements);
 			 System.out.println("nb of false: " + falseCompteurCol);
 			 
-			 if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element  in fillElTry of GrillFillColonne");
+			 //if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element  in fillElTry of GrillFillColonne");
+			 if(missing.size() == 1 && falseCompteurCol == 0) {
+				 if(!Solver.tempEls.isEmpty()) throw new UnsolvablePathException("Cannot update element. Try another path");
+				 else throw new UnsolvablePuzzleException("Cannot update element. No more paths available.");
+			 }
 			 
-			 if(falseCompteurCol != 0) { // avant: =2
-				 Grille newGrid = new Grille(grilleObj1.gr);
+			 
+			 if(falseCompteurCol == 2) { // avant: !=0
+				 //Grille newGrid = new Grille(grilleObj1.gr);
 				 
-				 int ind = suiviElements.indexOf(false);
+				 int[][] gridCopy = new int[9][9]; 
 				 
-				 int ligne = emptySpots.get(ind).ligne;
-				 int sousCarre = emptySpots.get(ind).sousCarre;
+				 for (int i = 0; i < 9; i++) {
+					 gridCopy[i] = Arrays.copyOf(grilleObj1.gr[i], 9);
+				 }
 				 
-				 Case newTempCase = new Case(ligne, index+1);
-				 newTempCase.tempValue = missing.get(j);
-				 tempEls.push(newTempCase);
 				 
-				 System.out.println("temp el last: " + tempEls.peek());
+				 Grille newGrid = new Grille(gridCopy);
 				 
-				 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne + ", col " + (index+1) + ", sousCarré " + sousCarre);
+				 //int ind = suiviElements.indexOf(false);
 				 
-				 newGrid.colonneObjets[index].updateCol(ligne, missing.get(j));
+				 ArrayList<Integer> falseIndexes = new ArrayList<>();
+				 for(int i = 0; i < suiviElements.size(); i++) {
+					 if(suiviElements.get(i) == false) falseIndexes.add(i);
+				 }
+				 
+				 
+				//try the first spot
+				 int ligne1 = emptySpots.get(falseIndexes.get(0)).ligne;
+				 int sousCarre1 = emptySpots.get(falseIndexes.get(0)).sousCarre;
+				 
+				 int ligne2 = emptySpots.get(falseIndexes.get(1)).ligne;
+				 int sousCarre2 = emptySpots.get(falseIndexes.get(1)).sousCarre;
+				 
+				 //second option
+				 /*Case newTempCase2 = new Case(ligne2, index+1);
+				 newTempCase2.tempValue = missing.get(j);
+				 tempEls.push(newTempCase2);
+				 System.out.println("temp el last: " + Solver.tempEls.peek());*/
+				 
+				 
+				 Case newTempCase1 = new Case(ligne1, index+1);
+				 newTempCase1.tempValue = missing.get(j);
+				 
+				 newTempCase1.ligneNextUpd = ligne2;
+				 newTempCase1.colNextUpd = index+1;
+				 newTempCase1.sousCarreNextUpd = sousCarre2;
+				 
+				 Solver.tempEls.push(newTempCase1);
+				 System.out.println("temp el last: " + Solver.tempEls.peek());
+				 
+				 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne1 + ", col " + (index+1) + ", sousCarré " + sousCarre1);
+				 
+				 /*newGrid.colonneObjets[index].updateCol(ligne, missing.get(j));
 				 newGrid.ligneObjets[ligne-1].updateLigne((index+1), missing.get(j));
 				 newGrid.sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, (index+1),  missing.get(j));
+				 */
+				 newGrid.updateGrille(ligne1, (index+1), sousCarre1, missing.get(j));
 				 
 				 grilleStack.push(newGrid);
 				 grillUpd = true;
-				 //break;
+				 break;
 				 
 				 
 			 }
 			 
-		 //}
+		 }
 				 
 		 
 		 //return new FillResult(index, grillUpd);

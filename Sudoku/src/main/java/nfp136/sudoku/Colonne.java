@@ -13,7 +13,6 @@ public class Colonne {
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
 	
-	//Grille parentGrille;
 
 	public Colonne(int[] colonne) {
 		this.colonne = colonne;

@@ -10,15 +10,21 @@ public class Grille {
 	Colonne[] colonneObjets;
 	SousCarre[] sousCarreObjets;
 	
+	ArrayList<Case> forbiddenElCases = new ArrayList<>();
+	
+	ArrayList<Integer> triedIndListLigne = new ArrayList<>();
+	ArrayList<Integer> triedIndListCol = new ArrayList<>();
+	ArrayList<Integer> triedIndListSousCarre = new ArrayList<>();
+	
 	
 	public Grille(int[][] gr) {
 			
 		this.gr = gr;
-		/*this.gr = new int[9][9];
+		/*this.gr = new int[9][];
 		for (int i = 0; i < 9; i++) {
 		    this.gr[i] = Arrays.copyOf(gr[i], 9);
-		}*/
-		
+		}
+		*/
 		ligneObjets = new Ligne[]{new Ligne(gr[0]), new Ligne(gr[1]), new Ligne(gr[2]), new Ligne(gr[3]), new Ligne(gr[4]), new Ligne(gr[5]), new Ligne(gr[6]), new Ligne(gr[7]), new Ligne(gr[8])};
 		
 		colonneObjets = new Colonne[9];
@@ -104,18 +110,23 @@ public class Grille {
 	public MinAllResult findMinIndexAll() { // trouve l'indice min partout (ligne, colonne, sousCarre) 
 		
 		
-		ArrayList<Integer> indList = new ArrayList<>();
+		//ArrayList<Integer> indListEmpty = new ArrayList<>();
+				
 		int indexMin;
 		int nbElMin;
+		
+		if(this.allIndicesTried()) this.resetTriedIndices();
+		System.err.println(this.triedIndListLigne);
 		
 		/*int indMinLigne = this.trouverLigneAvecMinEl(indList).index;
 		int indMinCol = this.trouverColonneAvecMinEl(indList).index;
 		int indMinSousCarre = this.trouverSousCarreAvecMinEl(indList).index;*/
 		
 		
-		MinResult indMinLigneRes = this.trouverLigneAvecMinEl(indList);
-		MinResult indMinColRes = this.trouverColonneAvecMinEl(indList);
-		MinResult indMinSousCarreRes = this.trouverSousCarreAvecMinEl(indList);
+		MinResult indMinLigneRes = this.trouverLigneAvecMinEl(this.triedIndListLigne);
+		MinResult indMinColRes = this.trouverColonneAvecMinEl(this.triedIndListCol);
+		MinResult indMinSousCarreRes = this.trouverSousCarreAvecMinEl(this.triedIndListSousCarre);
+		
 		
 		indexMin = indMinLigneRes.index;
 		nbElMin = indMinLigneRes.nb;
@@ -129,10 +140,61 @@ public class Grille {
 			indexMin = indMinSousCarreRes.index;
 		}; 
 		
-		if(indexMin == indMinLigneRes.index) return new MinAllResult(indexMin, "ligne");
-		else if(indexMin == indMinColRes.index) return new MinAllResult(indexMin, "col");
-		else return new MinAllResult(indexMin, "sousCarre");
+		if(indexMin == indMinLigneRes.index && (indexMin != -1)) {
+			this.triedIndListLigne.add(indexMin);
+			return new MinAllResult(indexMin, "ligne");
+		} else if(indexMin == indMinColRes.index && (indexMin != -1)) {
+			this.triedIndListCol.add(indexMin);
+			return new MinAllResult(indexMin, "col");
+		} else if(indexMin == indMinSousCarreRes.index && (indexMin != -1)) {
+			this.triedIndListSousCarre.add(indexMin);
+			return new MinAllResult(indexMin, "sousCarre");
+		} else return new MinAllResult(-1, "none");
 	}
+	
+	
+	public MinAllResult findCandidateIndex() {
+		
+		int ind = -1; // l'index de la ligne avec le plus petit nombre d'éléments manquants 
+		//int minNb = 100; // le plus petit nombre d'éléments manquants parmi toutes les lignes
+		int nb; // le nombre courant d'éléments manquants 
+		
+		if(this.allIndicesTried()) this.resetTriedIndices();
+		
+		for(int i=0; i < ligneObjets.length; i++) {
+			nb = 9-ligneObjets[i].calculerNbElements();
+			if(nb != 0 && nb < 9 && !this.triedIndListLigne.contains(i) ) { 
+				ind = i;
+				break;
+				
+			}
+			}
+		if(ind != -1) return new MinAllResult(ind, "ligne");
+		
+		for(int i=0; i < ligneObjets.length; i++) {
+			nb = 9-colonneObjets[i].calculerNbElements();
+			if(nb != 0 && nb < 9 && !this.triedIndListLigne.contains(i) ) { 
+				ind = i;
+				break;
+				
+			}
+			}
+		if(ind != -1) return new MinAllResult(ind, "col");
+		return new MinAllResult(-1, "none");
+	}
+	
+	
+	public void updateGrille(int ligne, int col, int sousCarre, int el) { // mettre à jour une grille avec un élément 
+		
+		this.ligneObjets[ligne-1].updateLigne(col, el);
+		this.colonneObjets[col-1].updateCol(ligne, el);
+		this.sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, col,  el);
+		
+	}
+	
+	
+	
+	
 	
 	/*public void removeCasesDeuxEl(int row, int column) {
 		Case case1 = new Case(row, column); 
@@ -146,6 +208,17 @@ public class Grille {
 	
 	}*/	
 	
+	
+	public boolean allIndicesTried() {
+	    // Vérifie si 9 indices pour chaque type ont été essayés
+	    return (this.triedIndListLigne.size() >= 9 && this.triedIndListCol.size() >= 9 && this.triedIndListSousCarre.size() >= 9);
+	}
+	
+	public void resetTriedIndices() {
+		this.triedIndListLigne.clear();
+		this.triedIndListCol.clear();
+		this.triedIndListSousCarre.clear();
+	}
 	
 		
 	@Override
