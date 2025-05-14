@@ -1,5 +1,6 @@
 package nfp136.sudoku;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -51,7 +52,7 @@ public class Main {
 		
 		
 		// ok
-		
+		/*
 		int[] row1 = {0,0,3,0,2,0,6,0,0};
 		int[] row2 = {9,0,0,3,0,5,0,0,1};
 		int[] row3 = {0,0,1,8,0,6,4,0,0};
@@ -61,36 +62,55 @@ public class Main {
 		int[] row7 = {0,0,2,6,0,9,5,0,0};
 		int[] row8 = {8,0,0,2,0,3,0,0,9};
 		int[] row9 = {0,0,5,0,1,0,3,0,0};
+*/
+		
 
+		//int[][] grille1 = {row1, row2, row3, row4, row5, row6, row7, row8, row9};
+		
+		//System.out.println(Arrays.deepToString(grille1));
+		
+		if (args.length != 1) {
+            System.err.println("Usage: java -cp . MonSudoku <filename>");
+            return;
+        }
+		
+		String filename = args[0];
+		
+		try {
+			int[][] grid = SudokuFileReader.loadGrid(filename);
+			
+			Grille grilleObj1 = new Grille(grid);
+			
+			ArrayList<Grille> solutions = new ArrayList<>(); 
+			
+			Stack<Grille> grillStack = new Stack<>();
+			grillStack.push(grilleObj1);
 
-		int[][] grille1 = {row1, row2, row3, row4, row5, row6, row7, row8, row9};
-		
-		System.out.println(Arrays.deepToString(grille1));
-		Grille grilleObj1 = new Grille(grille1);
-		
-		ArrayList<Grille> solutions = new ArrayList<>(); 
-		
-		Stack<Grille> grillStack = new Stack<>();
-		grillStack.push(grilleObj1);
-
-		
-		Solution.findSolutions(grillStack, solutions);
-		
-		
-		// vérifier que les solutions sont différentes
-		if(solutions.size() == 2) {
-			if(Arrays.deepEquals(solutions.get(0).gr, solutions.get(1).gr)) {
-				solutions.remove(1);
-			}
-		}
-		
-		if(solutions.isEmpty()) {
-			System.err.println("No solution found.");
-			} else {
-				for (int i = 0; i < solutions.size(); i++) {
-				    System.out.println("Solution " + (i + 1) + ": " + solutions.get(i));
+			
+			Solution.findSolutions(grillStack, solutions);
+			
+			
+			// vérifier que les solutions sont différentes
+			if(solutions.size() == 2) {
+				if(Arrays.deepEquals(solutions.get(0).gr, solutions.get(1).gr)) {
+					solutions.remove(1);
 				}
 			}
+			
+			if(solutions.isEmpty()) {
+				System.err.println("No solution found.");
+				} else {
+					for (int i = 0; i < solutions.size(); i++) {
+					    System.out.println("Solution " + (i + 1) + ": " + solutions.get(i));
+					}
+				}
+			
+		} catch (IOException e) {
+			 System.err.println("Error reading file: " + e.getMessage());
+		}
+		
+		
+		
 			
 
 		
