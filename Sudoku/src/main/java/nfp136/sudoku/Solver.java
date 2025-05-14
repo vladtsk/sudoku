@@ -29,12 +29,13 @@ public class Solver {
 		
 		//System.out.println(stack.peek());
 		
-		//while(!updLigne && !updCol && !updSousCarre) 
+		
 		do {
 			updLigne = false;
 			updCol = false;
 			updSousCarre = false;
 		
+			indMinList.clear();
 			while(indMinList.size() <9) { 
 				res = GrilleFillSousCarre.fillMinEl(grid, indMinList); //, indMinList
 				if(res.grillUpdated) updSousCarre = true;
@@ -73,6 +74,13 @@ public class Solver {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
 	public static void insertCandidateValue(Stack<Grille> stack) {
 		Grille grid = stack.peek();
 		
@@ -99,9 +107,11 @@ public class Solver {
 			
 			
 			if(indMinRes.index == -1) indMinRes = grid.findCandidateIndex();
+			System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);
+			
 			if(indMinRes.index == -1) throw new IndexNotFoundException("No min element found");
 			 
-			 System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);
+			 
 			 
 			 switch(indMinRes.type) {
 			 case "ligne": 
@@ -120,12 +130,7 @@ public class Solver {
 		
 	}
 	
-	/*public static void findAlternativeSolution(Stack<Grille> stack) {
-		
-		System.out.println(stack.peek()); 
-		System.out.println(tempEls());
-		
-	}*/
+
 	
 	
 }

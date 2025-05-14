@@ -32,6 +32,14 @@ public class GrilleFillColonne {
 			
 			 ArrayList<Case> emptySpots = colonneObjets[indMin].getCasesVides();
 			 
+			 // Technique 1
+			 
+			 GrillFillUtils.applyEliminationTechnique(grilleObj1, missing, emptySpots);
+			 emptySpots = colonneObjets[indMin].getCasesVides();
+			 
+			 //Technique 2
+			 missing = colonneObjets[indMin].getElementsManquants();
+			 
 			 for(int j = 0; j < missing.size(); j++) {
 				 System.out.println("El. " + missing.get(j));
 				 
@@ -69,22 +77,33 @@ public class GrilleFillColonne {
 					 grillUpd = true;
 					 continue outerLoop;
 					 
-				 } /*else if(falseCompteurCol == 2) {
+				 } else if(falseCompteurCol == 2) {
 					 
+					 int index1 = suiviElements.indexOf(false);
+					 int index2 = -1;
+					 
+					 					 
 					 for(int i = 0; i < suiviElements.size(); i++) {
-						 if(suiviElements.get(i) == false) {
-							 emptySpots.get(i).updateValeursPossibles(missing.get(j));
-							 System.out.println("missingEl: " + missing.get(j));
-							 System.out.println("emptySpot: " + emptySpots.get(i));
-							 System.out.println("valeur possible: " + missing.get(j));
-						 }
-							 
-						 //if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
+						 if(suiviElements.get(i) == false && i != index1) {
+							 index2 = i;
+							 break;
+							 } 
+						 
 					 }
 					 
-					
+					 if(index2 != -1) {
+						 int ligne1 = emptySpots.get(index1).ligne;
+						 int ligne2 = emptySpots.get(index2).ligne;
+						 
+						 int sousCarre1 = emptySpots.get(index1).sousCarre;
+						 int sousCarre2 = emptySpots.get(index2).sousCarre;
+						 
+						 
+						 ValPossible val = new ValPossible(missing.get(j), ligne1, (indMin+1), sousCarre1, ligne2, (indMin+1), sousCarre2);
+						 grilleObj1.valDeuxCasesPossible.add(val);
+					 }
 					 
-				 }*/
+				 }
 			 }
 			 
 			 /*if(emptySpots.size() > 0) {

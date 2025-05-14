@@ -94,9 +94,18 @@ public class Ligne {
 		return contient;
 	}
 	
-	public void updateLigne(int col, int el) {
-		ligne[col-1] = el;
-		System.out.println("Updating ligne " + numLigneCourante + ": " + "with el " + el);
+	public boolean updateLigne(int col, int el) {
+		if(ligne[col-1] == 0) {
+			ligne[col-1] = el;
+			System.out.println("Updating ligne " + numLigneCourante + ": " + "with el " + el);
+			return true;
+		} else {
+			System.err.println("Cannot update ligne " + numLigneCourante + ": " + "with el " + el + " as the place is not free.");
+			return false;
+		}
+			
+		
+		
 		
 		//parentGrille.removeCasesDeuxEl(numLigneCourante, col);
 		

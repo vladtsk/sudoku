@@ -13,6 +13,10 @@ public class Grille {
 	
 	ArrayList<Case> forbiddenElCases = new ArrayList<>();
 	
+	Stack<ValPossible> valDeuxCasesPossible = new Stack<>();
+	
+	
+	
 	ArrayList<Integer> triedIndListLigne = new ArrayList<>();
 	ArrayList<Integer> triedIndListCol = new ArrayList<>();
 	ArrayList<Integer> triedIndListSousCarre = new ArrayList<>();
@@ -164,7 +168,7 @@ public class Grille {
 		
 		for(int i=0; i < ligneObjets.length; i++) {
 			nb = 9-ligneObjets[i].calculerNbElements();
-			if(nb != 0 && nb < 9 && !this.triedIndListLigne.contains(i) ) { 
+			if(nb != 0 && nb < 9  && !this.triedIndListLigne.contains(i)) { 
 				ind = i;
 				break;
 				
@@ -172,24 +176,43 @@ public class Grille {
 			}
 		if(ind != -1) return new MinAllResult(ind, "ligne");
 		
-		for(int i=0; i < ligneObjets.length; i++) {
+		for(int i=0; i < colonneObjets.length; i++) {
 			nb = 9-colonneObjets[i].calculerNbElements();
-			if(nb != 0 && nb < 9 && !this.triedIndListLigne.contains(i) ) { 
+			if(nb != 0 && nb < 9 && !this.triedIndListCol.contains(i) ) { 
 				ind = i;
 				break;
 				
 			}
 			}
 		if(ind != -1) return new MinAllResult(ind, "col");
+		
+		
+		for(int i=0; i < sousCarreObjets.length; i++) {
+			nb = 9-sousCarreObjets[i].calculerNbElements();
+			if(nb != 0 && nb < 9 && !this.triedIndListSousCarre.contains(i) ) { 
+				ind = i;
+				break;
+				
+			}
+			}
+		
+		if(ind != -1) return new MinAllResult(ind, "souCarre");
 		return new MinAllResult(-1, "none");
 	}
 	
 	
-	public void updateGrille(int ligne, int col, int sousCarre, int el) { // mettre à jour une grille avec un élément 
+	public boolean updateGrille(int ligne, int col, int sousCarre, int el) { // mettre à jour une grille avec un élément 
+		boolean updLigne = false;
+		boolean updCol = false;
+		boolean updSousCarre = false;
 		
-		this.ligneObjets[ligne-1].updateLigne(col, el);
-		this.colonneObjets[col-1].updateCol(ligne, el);
-		this.sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, col,  el);
+		
+		updLigne = this.ligneObjets[ligne-1].updateLigne(col, el);
+		updCol = this.colonneObjets[col-1].updateCol(ligne, el);
+		updSousCarre = this.sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, col,  el);
+		
+		if(updLigne && updCol && updSousCarre) return true;
+		return false;
 		
 	}
 	

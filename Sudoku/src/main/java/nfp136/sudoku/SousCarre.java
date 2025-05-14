@@ -158,7 +158,7 @@ public class SousCarre {
 		return contient;
 	}
 	
-	public void updateSousCarre(int ligne, int col, int el) { 
+	public boolean updateSousCarre(int ligne, int col, int el) { 
 		int index;
 		if(ligne == numSousCarreCourant-2) {
 			index = col - 6;
@@ -171,11 +171,16 @@ public class SousCarre {
 		} else {                   // if(ligne == numSousCarreCourant+2)
 			index = col + 6;
 		}
-				
-		sousCarre[index-1] = el;
-		System.out.println("Updating sousCarré " + numSousCarreCourant + ": " + "with el " + el);
+						
+		if(sousCarre[index-1] == 0) {
+			sousCarre[index-1] = el;
+			System.out.println("Updating sousCarré " + numSousCarreCourant + ": " + "with el " + el);
+			return true;
+		} else {
+			System.err.println("Cannot update sousCarré " + numSousCarreCourant + ": " + "with el " + el + " as the place is not free.");
+			return false;
+		}
 		
-		//parentGrille.removeCasesDeuxEl(ligne, col);
 	}
 	
 	@Override

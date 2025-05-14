@@ -16,8 +16,8 @@ public class GrilleFillLigne {
 		System.out.println("ligneObj 0 : " + grilleObj1.ligneObjets[indMin]);
 		
 		Ligne[] ligneObjets = grilleObj1.ligneObjets;
-		Colonne[] colonneObjets = grilleObj1.colonneObjets;
-		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
+		//Colonne[] colonneObjets = grilleObj1.colonneObjets;
+		//SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
 		
 		int k = 0;
 		
@@ -25,9 +25,21 @@ public class GrilleFillLigne {
 		while(k==0) {
 			k = 1;
 			ArrayList<Integer> missing = ligneObjets[indMin].getElementsManquants();
-			System.out.println("missing: " + missing);
+			System.err.println("missing: " + missing);
 			
 			 ArrayList<Case> emptySpots = ligneObjets[indMin].getCasesVides();
+			 
+			 
+			 // Technique 1
+			 
+			 GrillFillUtils.applyEliminationTechnique(grilleObj1, missing, emptySpots);
+			 
+			 
+			 //Technique 2
+			 
+			 missing = ligneObjets[indMin].getElementsManquants();
+			 emptySpots = ligneObjets[indMin].getCasesVides();
+			 System.err.println("missing: " + missing);
 			 
 			 for(int j = 0; j < missing.size(); j++) {
 				 System.out.println("El. " + missing.get(j));
@@ -66,7 +78,33 @@ public class GrilleFillLigne {
 					 grillUpd = true;
 					 continue outerLoop;
 					 
-				 } 
+				 } else if(falseCompteurCol == 2) {
+					 
+					 int index1 = suiviElements.indexOf(false);
+					 int index2 = -1;
+					 
+					 					 
+					 for(int i = 0; i < suiviElements.size(); i++) {
+						 if(suiviElements.get(i) == false && i != index1) {
+							 index2 = i;
+							 break;
+							 } 
+						 
+					 }
+					 
+					 if(index2 != -1) {
+						 int column1 = emptySpots.get(index1).colonne;
+						 int column2 = emptySpots.get(index2).colonne;
+						 
+						 int sousCarre1 = emptySpots.get(index1).sousCarre;
+						 int sousCarre2 = emptySpots.get(index2).sousCarre;
+						 
+						 
+						 ValPossible val = new ValPossible(missing.get(j), (indMin+1), column1, sousCarre1, (indMin+1), column2, sousCarre2);
+						 grilleObj1.valDeuxCasesPossible.add(val);
+					 }
+					 
+				 }
 				 
 				
 			 }

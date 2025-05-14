@@ -95,9 +95,16 @@ public class Colonne {
 		return contient;
 	}
 	
-	public void updateCol(int ligne, int el) {
-		colonne[ligne-1] = el;
-		System.out.println("Updating colonne " + numColonneCourante + ": " + "with el " + el);
+	public boolean updateCol(int ligne, int el) {
+		
+		if(colonne[ligne-1] == 0) {
+			colonne[ligne-1] = el;
+			System.out.println("Updating colonne " + numColonneCourante + ": " + "with el " + el);
+			return true;
+		} else {
+			System.err.println("Cannot update colonne " + numColonneCourante + ": " + "with el " + el + " as the place is not free.");
+			return false;
+		}
 		
 		//parentGrille.removeCasesDeuxEl(ligne, numColonneCourante);
 	}
