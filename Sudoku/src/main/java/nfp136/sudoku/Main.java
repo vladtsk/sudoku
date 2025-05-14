@@ -10,7 +10,8 @@ public class Main {
 		
 		
 		
-		// cannot solve
+		// cannot solve 
+		/*
 		int[] row1 = {0, 0, 0, 0, 0, 0, 0, 1, 2};
 		int[] row2 = {0, 0, 0, 0, 0, 0, 0, 0, 3};
 		int[] row3 = {0, 0, 2, 3, 0, 0, 4, 0, 0};
@@ -20,7 +21,7 @@ public class Main {
 		int[] row7 = {0, 0, 8, 5, 0, 0, 0, 0, 0};
 		int[] row8 = {9, 0, 0, 0, 4, 0, 5, 0, 0};
 		int[] row9 = {4, 7, 0, 0, 0, 6, 0, 0, 0};
-		
+		*/
 		//
 		/*
 		int[] row1 = {5, 0, 0, 0, 7, 0, 0, 0, 0};//53
@@ -64,7 +65,7 @@ public class Main {
 		
 		
 		// ok
-		/*
+		
 		int[] row1 = {0,0,3,0,2,0,6,0,0};
 		int[] row2 = {9,0,0,3,0,5,0,0,1};
 		int[] row3 = {0,0,1,8,0,6,4,0,0};
@@ -74,7 +75,7 @@ public class Main {
 		int[] row7 = {0,0,2,6,0,9,5,0,0};
 		int[] row8 = {8,0,0,2,0,3,0,0,9};
 		int[] row9 = {0,0,5,0,1,0,3,0,0};
-*/
+
 
 		
 //
@@ -97,7 +98,7 @@ public class Main {
 		
 	
 	
-		Solver.solveOrganically(grillStack);
+		Solver.solveOrganically(grillStack.peek());
 		
 		int itr = 0;
 		/*while(!grillStack.peek().estComplet() && itr<100) {
@@ -164,7 +165,7 @@ public class Main {
 					
 					
 					Solver.insertCandidateValue(grillStack);
-					Solver.solveOrganically(grillStack);
+					Solver.solveOrganically(grillStack.peek());
 					
 					System.err.println(grillStack.peek());
 					
@@ -199,6 +200,8 @@ public class Main {
 					
 					
 					grillStack.pop();
+					
+		
 					
 					grillStack.peek().updateForbiddenElCases(failedCase, grillStack);
 					
@@ -279,7 +282,7 @@ public class Main {
 				System.err.println("caseInterdite" + caseInterdite);
 				
 				grillStack.peek().forbiddenElCases.add(caseInterdite);
-				Solver.solveOrganically(grillStack);
+				Solver.solveOrganically(grillStack.peek());
 				if(grillStack.peek().estComplet()) solutions.add(grillStack.peek());
 				
 				//Solver.insertCandidateValue(grillStack);
@@ -289,7 +292,7 @@ public class Main {
 				int iterations=0;
 				while(!grillStack.peek().estComplet()) {
 					Solver.insertCandidateValue(grillStack);
-					Solver.solveOrganically(grillStack);
+					Solver.solveOrganically(grillStack.peek());
 					
 					iterations++;
 					if(iterations > 100) throw new UnsolvablePuzzleException("Too many iterations.");

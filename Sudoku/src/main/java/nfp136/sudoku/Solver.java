@@ -11,8 +11,8 @@ public class Solver {
 	
 	
 	
-	public static void solveOrganically(Stack<Grille> stack) { 
-		Grille grid = stack.peek();
+	public static void solveOrganically(Grille grid) { //Stack<Grille> stack
+		//Grille grid = stack.peek();
 		ArrayList<Integer> indMinList = new ArrayList<>();
 		
 		

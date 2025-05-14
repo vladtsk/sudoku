@@ -211,7 +211,11 @@ public class Grille {
 		updCol = this.colonneObjets[col-1].updateCol(ligne, el);
 		updSousCarre = this.sousCarreObjets[sousCarre - 1].updateSousCarre(ligne, col,  el);
 		
-		if(updLigne && updCol && updSousCarre) return true;
+		if(updLigne && updCol && updSousCarre) {
+			
+			this.gr[ligne - 1][col - 1] = el;
+			return true;
+		}
 		return false;
 		
 	}
