@@ -29,15 +29,8 @@ public class GrillFillColonneUtils {
 				 ArrayList<Integer> forbiddenVals = grilleObj1.forbiddenElCases.get(index).valeursInterdites;
 				 if(forbiddenVals.contains(missingEl)) forbiddenContains = true;
 				 
-				 System.out.println("forbiddenVals: " + forbiddenVals); 
 			 }
-			 
-			 
-			 //ArrayList<Integer> forbiddenVals = emptySpots.get(i).valeursInterdites;
-			 //boolean forbiddenContains = forbiddenVals.contains(missingEl);
-			 
-			 System.out.println("forbidden contains: " + forbiddenContains);
-			 
+			
 			 
 			 Ligne ligneObj = ligneObjets[ligne-1];
 			 boolean ligneContains = ligneObj.contientElement(missingEl);
@@ -46,12 +39,7 @@ public class GrillFillColonneUtils {
 			 boolean sousCarreContains = sousCarreObj.contientElement(missingEl);
 			 
 			 suiviElements.add(ligneContains || sousCarreContains || forbiddenContains);
-			 
-			 
-			 System.out.println("ligneObj obj " + ligneObj);
-			 System.out.println("Ligne "+ ligne + " contient el " + missingEl + " : " + ligneContains);
-			 
-			 
+			
 		 }
 	}
 	

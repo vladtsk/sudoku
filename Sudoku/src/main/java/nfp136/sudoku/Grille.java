@@ -14,9 +14,7 @@ public class Grille {
 	ArrayList<Case> forbiddenElCases = new ArrayList<>();
 	
 	Stack<ValPossible> valDeuxCasesPossible = new Stack<>();
-	
-	
-	
+		
 	ArrayList<Integer> triedIndListLigne = new ArrayList<>();
 	ArrayList<Integer> triedIndListCol = new ArrayList<>();
 	ArrayList<Integer> triedIndListSousCarre = new ArrayList<>();
@@ -25,11 +23,7 @@ public class Grille {
 	public Grille(int[][] gr) {
 			
 		this.gr = gr;
-		/*this.gr = new int[9][];
-		for (int i = 0; i < 9; i++) {
-		    this.gr[i] = Arrays.copyOf(gr[i], 9);
-		}
-		*/
+		
 		ligneObjets = new Ligne[]{new Ligne(gr[0]), new Ligne(gr[1]), new Ligne(gr[2]), new Ligne(gr[3]), new Ligne(gr[4]), new Ligne(gr[5]), new Ligne(gr[6]), new Ligne(gr[7]), new Ligne(gr[8])};
 		
 		colonneObjets = new Colonne[9];
@@ -43,12 +37,9 @@ public class Grille {
 			}
 			
 			colonneObjets[i] = new Colonne(colonne);
-			//System.out.println(Arrays.toString(colonneObjets[i].getColonne()));
 			
 
 		}
-		
-		//System.out.println(Arrays.toString(colonneObjets[1].getColonne()));
 		
 		sousCarreObjets = new SousCarre[9];
 		
@@ -58,7 +49,6 @@ public class Grille {
 				
 				int[] sous_carre = new int[9];
 				
-
 				int k;
 				for(int j = 0 + n; j < 3 + n; j++) {
 					k = 0;
@@ -75,12 +65,8 @@ public class Grille {
 				
 			}
 			
-			
-			
 		}
-			
-		
-		
+
 	}
 	
 	
@@ -114,20 +100,12 @@ public class Grille {
 	
 	public MinAllResult findMinIndexAll() { // trouve l'indice min partout (ligne, colonne, sousCarre) 
 		
-		
-		//ArrayList<Integer> indListEmpty = new ArrayList<>();
-				
 		int indexMin;
 		int nbElMin;
 		
 		if(this.allIndicesTried()) this.resetTriedIndices();
 		System.err.println(this.triedIndListLigne);
-		
-		/*int indMinLigne = this.trouverLigneAvecMinEl(indList).index;
-		int indMinCol = this.trouverColonneAvecMinEl(indList).index;
-		int indMinSousCarre = this.trouverSousCarreAvecMinEl(indList).index;*/
-		
-		
+				
 		MinResult indMinLigneRes = this.trouverLigneAvecMinEl(this.triedIndListLigne);
 		MinResult indMinColRes = this.trouverColonneAvecMinEl(this.triedIndListCol);
 		MinResult indMinSousCarreRes = this.trouverSousCarreAvecMinEl(this.triedIndListSousCarre);
@@ -246,15 +224,7 @@ public class Grille {
 		}
 	}
 	
-	/*
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) return true;
-		if(obj == null || this.getClass()!= obj.getClass()) return false;
-		
-		Case other = (Case) obj;
-		return other.colonne == this.colonneObjets && other.ligne == this.ligne;
-	}*/
+	
 		
 	@Override
 	public String toString() {

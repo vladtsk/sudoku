@@ -16,8 +16,6 @@ public class GrilleFillSousCarre {
 		
 		System.out.println("sousCarreObjets [min] : " + grilleObj1.sousCarreObjets[indMin]);
 		
-		//Ligne[] ligneObjets = grilleObj1.ligneObjets;
-		//Colonne[] colonneObjets = grilleObj1.colonneObjets;
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
 		
 		int k = 0;
@@ -115,7 +113,6 @@ public class GrilleFillSousCarre {
 		}
 		
 		return new FillResult(indMin, grillUpd);
-		//return indMin;
 		
 	}
 	
@@ -124,14 +121,9 @@ public class GrilleFillSousCarre {
 		Grille grilleObj1 = grilleStack.peek(); 
 				
 		boolean grillUpd = false;
-		//Ligne[] ligneObjets = grilleObj1.ligneObjets;
-		//Colonne[] colonneObjets = grilleObj1.colonneObjets;
+		
 		SousCarre[] sousCarreObjets = grilleObj1.sousCarreObjets;
-		
 		ArrayList<Integer> missing = sousCarreObjets[index].getElementsManquants();
-		
-		System.out.println("missing: " + missing);
-		
 		ArrayList<Case> emptySpots = sousCarreObjets[index].getCasesVides();
 		
 		for(int j = 0; j < missing.size(); j++) {
@@ -147,15 +139,13 @@ public class GrilleFillSousCarre {
 			 System.out.println("suivi" + suiviElements);
 			 System.out.println("nb of false: " + falseCompteurCol);
 			 
-			 //if(missing.size() == 1 && falseCompteurCol == 0) throw new UnsolvablePuzzleException("Cannot update element  in fillElTry of GrillFillSousCarre"); 
+			 
 			 if(missing.size() == 1 && falseCompteurCol == 0) {
 				 if(!Solver.tempEls.isEmpty()) throw new UnsolvablePathException("Cannot update element. Try another path");
 				 else throw new UnsolvablePuzzleException("Cannot update element. No more paths available.");
 			 }
 			 
 			 if(falseCompteurCol == 2) {
-				 
-				 //Grille newGrid = new Grille(grilleObj1.gr);
 				 
 				 int[][] gridCopy = new int[9][9]; 
 				 
@@ -178,12 +168,7 @@ public class GrilleFillSousCarre {
 				 int colonne2 = emptySpots.get(falseIndexes.get(1)).colonne;
 				 int sousCarre2 = emptySpots.get(falseIndexes.get(1)).sousCarre;
 				 
-				 
-				 /*Case newTempCase2 = new Case(ligne2, colonne2);
-				 newTempCase2.tempValue = missing.get(j);
-				 tempEls.push(newTempCase2);
-				 System.out.println("tempEl last: " + Solver.tempEls.peek());*/
-				 
+				 	 
 				 Case newTempCase1 = new Case(ligne1, colonne1);
 				 newTempCase1.tempValue = missing.get(j);
 				 
@@ -195,11 +180,6 @@ public class GrilleFillSousCarre {
 				 System.out.println("tempEl last: " + Solver.tempEls.peek());
 				 
 				 System.out.println("Putting the element " + missing.get(j) + " at row " + ligne1 + ", col " + colonne1 + ", sousCarré " + (index+1));
-				 
-				 /*newGrid.colonneObjets[colonne - 1].updateCol(ligne, missing.get(j));
-				 newGrid.ligneObjets[ligne-1].updateLigne(colonne, missing.get(j));
-				 newGrid.sousCarreObjets[index].updateSousCarre(ligne, colonne,  missing.get(j));
-				 */
 				 
 				 newGrid.updateGrille(ligne1, colonne1, (index+1), missing.get(j));
 				 

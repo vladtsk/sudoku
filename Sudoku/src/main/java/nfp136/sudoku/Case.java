@@ -1,7 +1,6 @@
 package nfp136.sudoku;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
 
 public class Case {
 
@@ -10,16 +9,13 @@ public class Case {
 	int tempValue;
 	int sousCarre;
 	
-	//boolean toUpdateNext = false; // un indicateur pour indiquer que cette case est à mettre à jour bientôt  
-	
+		
 	// si les valeurs ligneNextUpd et ligneNextUpd != 0, cela nous donne la prochaine caise à mettre à jour (utile quand on a deux valeurs possible et on a essayé la première qui a échoué)
 	int ligneNextUpd = 0; 
 	int colNextUpd = 0;
 	int sousCarreNextUpd = 0;
 	
 	ArrayList<Integer> valeursInterdites = new ArrayList<>();
-	
-	//private int[] forbiddenElements;
 	
 	public Case(int ligne, int colonne) {
 		this.ligne= ligne;
@@ -53,20 +49,13 @@ public class Case {
 	}
 	
 	public void updateValeursInterdites(int el) { // ArrayList<Integer> list
-		/*for(int el : list) {
-			valeursPossibles.add(el);
-		}*/
 		
 		if(!valeursInterdites.contains(el)) valeursInterdites.add(el);
-		
-		
 		System.out.println("Updating valeursInterdites with " + el);
 	}
 	
 	public void removeValeursInterdites(int el) {
-		valeursInterdites.remove(el);
-		
-		
+		valeursInterdites.remove(el);		
 		System.out.println("Removing from valeursInterdites: " + el);
 	}
 	

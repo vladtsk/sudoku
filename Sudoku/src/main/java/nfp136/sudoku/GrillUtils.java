@@ -6,18 +6,6 @@ import java.util.Stack;
 
 public class GrillUtils {
 	
-	/*public static Grille createArrayCopy(Grille arr) {
-		int[][] gridCopy = new int[9][9]; 
-		 
-		 for (int i = 0; i < 9; i++) {
-			 gridCopy[i] = Arrays.copyOf(arr.gr[i], 9);
-		 }
-		 
-		 
-		return new Grille(gridCopy);
-	}
-	
-	*/
 	public static Grille createArrayCopy(Grille arr) { //createFullCopy
 	    int[][] gridCopy = new int[9][9];
 	    for (int i = 0; i < 9; i++) {

@@ -33,20 +33,5 @@ public class ValPossible {
 	}
 	
 	
-	/*
 	
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) return true;
-		if(obj == null || this.getClass()!= obj.getClass()) return false;
-		
-		Case other = (Case) obj;
-		return other.colonne == this.colonne && other.ligne == this.ligne;
-	}
-	
-	@Override
-	public int hashCode() {
-		return 31*ligne + colonne;
-	}*/
 }

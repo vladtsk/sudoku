@@ -105,8 +105,7 @@ public class Colonne {
 			System.err.println("Cannot update colonne " + numColonneCourante + ": " + "with el " + el + " as the place is not free.");
 			return false;
 		}
-		
-		//parentGrille.removeCasesDeuxEl(ligne, numColonneCourante);
+	
 	}
 	
 	@Override

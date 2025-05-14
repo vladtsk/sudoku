@@ -6,28 +6,18 @@ import java.util.Stack;
 public class Solver {
 	
 	static Stack<Case> tempEls = new Stack<>();
-	//static ArrayList<Case> forbiddenElCases = new ArrayList<>();
-	//static ArrayList<MinAllResult> triedMin = new ArrayList<>(); // des valeurs minimum déjà essayé dans insertCandidateValue
-	
-	
-	
-	public static void solveOrganically(Grille grid) { //Stack<Grille> stack
-		//Grille grid = stack.peek();
-		ArrayList<Integer> indMinList = new ArrayList<>();
 		
-				
+	public static void solveOrganically(Grille grid) { //Stack<Grille> stack
+	
+		ArrayList<Integer> indMinList = new ArrayList<>();
+					
 		FillResult res;
 		boolean updLigne;
 		boolean updCol;
 		boolean updSousCarre;
 		
-		//boolean update = true;
-		
 		System.out.println("Starting");
-		
-		//System.out.println(stack.peek());
-		
-		
+	
 		do {
 			updLigne = false;
 			updCol = false;
@@ -35,7 +25,7 @@ public class Solver {
 					
 			indMinList.clear();
 			while(indMinList.size() <9) { 
-				res = GrilleFillSousCarre.fillMinEl(grid, indMinList); //, indMinList
+				res = GrilleFillSousCarre.fillMinEl(grid, indMinList); 
 				if(res.grillUpdated) updSousCarre = true;
 				if(res.result == -1) break;
 				indMinList.add(res.result);
@@ -64,9 +54,7 @@ public class Solver {
 			
 			
 			System.out.println(grid);
-			System.out.println(updLigne + " " + updCol + " "+ updSousCarre);
 			
-			//if(!updLigne && !updCol && !updSousCarre) break;
 		} while (updLigne || updCol || updSousCarre);
 		
 	}

@@ -13,7 +13,6 @@ public class SousCarre {
 	ArrayList<Integer> elementsManquants = new ArrayList<>();
 	ArrayList<Case> casesVides = new ArrayList<>();
 	
-	//Grille parentGrille;
 
 	public SousCarre(int[] sousCarre) {
 		this.sousCarre = sousCarre;
@@ -94,10 +93,7 @@ public class SousCarre {
 						} else {
 							row = 7;
 						}
-						//numSousCarreCourant=1, 2, 3 => row=1
-						//numSousCarreCourant=4, 5, 6 => row=4
-						//numSousCarreCourant=7, 8, 9 => row=7
-						//row = numSousCarreCourant / 3 + 3;
+						
 						if(numSousCarreCourant %3 == 1) {
 							column = i+1;
 						} else if(numSousCarreCourant %3 ==2) {
@@ -114,9 +110,7 @@ public class SousCarre {
 						} else {
 							row = 8;
 						}
-						//numSousCarreCourant=1, 2, 3 => row=2
-						//numSousCarreCourant=4, 5, 6 => row=5
-						//numSousCarreCourant=7, 8, 9 => row=8
+						
 						if(numSousCarreCourant %3 ==1) {
 							column = i-2;
 						} else if(numSousCarreCourant %3 ==2) {
@@ -142,11 +136,11 @@ public class SousCarre {
 							column = i+1;
 						}
 					}
-				//System.out.println("row " + row + ", column:" + column);
+				
 				casesVides.add(new Case(row, column));
 			}
 		}
-		//System.out.println(casesVides);
+		
 		return casesVides;
 	}
 	

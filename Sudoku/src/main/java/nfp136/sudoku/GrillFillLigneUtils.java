@@ -20,8 +20,6 @@ public class GrillFillLigneUtils {
 			 
 			 Case c = new Case(ligne, col);
 			 
-			 System.err.println(grilleObj1.forbiddenElCases);
-			 
 			 boolean containsCase = grilleObj1.forbiddenElCases.contains(c);
 			 boolean forbiddenContains = false;
 			 
@@ -34,13 +32,6 @@ public class GrillFillLigneUtils {
 				 System.out.println("forbiddenVals: " + forbiddenVals); 
 			 }
 			 
-			 //ArrayList<Integer> forbiddenVals = Solver.forbiddenElCases.get(i).valeursInterdites;
-			 //boolean forbiddenContains = forbiddenVals.contains(missingEl);
-			 
-			 
-			 System.out.println("forbidden contains: " + forbiddenContains);
-			 
-			 
 			 Colonne colObj = colonneObjets[col-1];
 			 boolean colContains = colObj.contientElement(missingEl);
 			 
@@ -48,11 +39,6 @@ public class GrillFillLigneUtils {
 			 boolean sousCarreContains = sousCarreObj.contientElement(missingEl);
 			 
 			 suiviElements.add(colContains || sousCarreContains || forbiddenContains);
-			 
-			 
-			 System.out.println("Col "+ col + " contient el " + missingEl + " : " + colContains);
-			 System.out.println("SousCarré "+ sousCarre + " contient el " + missingEl + " : " + sousCarreContains);
-			 
 			 
 		 }
 	}
@@ -91,20 +77,12 @@ public class GrillFillLigneUtils {
 			 int sousCarre1 = emptySpots.get(elIndexes.get(0)).sousCarre;
 			 int sousCarre2 = emptySpots.get(elIndexes.get(1)).sousCarre;
 			 
-			 System.out.println("sousCarre1 " + sousCarre1);
-			 System.out.println("sousCarre2 " + sousCarre2);
-			 
 			 int col1 = emptySpots.get(elIndexes.get(0)).colonne;
 			 int col2 = emptySpots.get(elIndexes.get(1)).colonne;
-			 
-			 System.out.println(col2);
-			 
+			 			 
 			 SousCarre sousCarreObj1 = sousCarreObjets[sousCarre1 - 1];
 			 SousCarre sousCarreObj2 = sousCarreObjets[sousCarre2 - 1];
-			 
-			 System.out.println("sousCarreObj1 contient the missing el (never?): " + sousCarreObj1.contientElement(missingEl));
-			 System.out.println("sousCarreObj2 contient the missing el (never?): " + sousCarreObj2.contientElement(missingEl));
-
+			
 			 
 			 if(!sousCarreObj1.contientElement(missingEl) && sousCarreObj2.contientElement(missingEl)) {
 				 
@@ -124,21 +102,7 @@ public class GrillFillLigneUtils {
 				 
 				 updated = true;
 				 
-			 } /*else {
-				 for(int i = 0; i < suiviElements.size(); i++) {
-					 if(suiviElements.get(i) == false) {
-						 emptySpots.get(i).updateValeursPossibles(missingEl);
-						 System.out.println("emptySpot: " + emptySpots.get(i));
-						 System.out.println("valeur possible: " + missingEl);
-					 }
-						 
-					 //if(!grilleObj1.casesDeuxEl.contains(emptySpots.get(i))) grilleObj1.updateCasesDeuxEl(emptySpots.get(i));
-				 }
-				 
-				 
-				 
-			 }*/
-			 
+			 } 
 		return updated;
 	}
 }

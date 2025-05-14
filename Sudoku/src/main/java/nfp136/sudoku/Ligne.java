@@ -37,9 +37,7 @@ public class Ligne {
 		} 
 	}
 	
-	/*public Ligne(int[] ligne) {
-		this(ligne, null);
-	}*/
+	
 	
 	public int[] getLigne() {
 		return ligne;
@@ -104,10 +102,6 @@ public class Ligne {
 			return false;
 		}
 			
-		
-		
-		
-		//parentGrille.removeCasesDeuxEl(numLigneCourante, col);
 		
 	}
 	
