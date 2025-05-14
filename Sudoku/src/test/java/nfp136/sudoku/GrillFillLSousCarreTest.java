@@ -1,0 +1,100 @@
+package nfp136.sudoku;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class GrillFillLSousCarreTest {
+	
+	@Test
+	void testMinInd() {
+		
+		int[] row1 = {1, 0, 6, 0, 0, 2, 4, 0, 9};
+		int[] row2 = {3, 9, 4, 1, 0, 0, 6, 0, 0};
+		int[] row3 = {0, 2, 0, 4, 0, 0, 0, 7, 0};
+		int[] row4 = {0, 0, 3, 0, 4, 0, 1, 0, 0};
+		int[] row5 = {0, 5, 7, 0, 9, 0, 0, 2, 0};
+		int[] row6 = {0, 0, 8, 0, 5, 0, 9, 0, 4};
+		int[] row7 = {0, 0, 0, 6, 2, 0, 0, 0, 0};
+		int[] row8 = {0, 0, 9, 5, 0, 7, 0, 0, 0};
+		int[] row9 = {5, 0, 0, 0, 0, 3, 8, 0, 0};
+
+		int[][] grille1 = {row1, row2, row3, row4, row5, row6, row7, row8, row9};
+		
+		Grille grilleObj1 = new Grille(grille1);
+		
+		
+		Stack<Grille> stack = new Stack<>();
+		stack.push(grilleObj1);
+		
+		ArrayList<Integer> indMinList = new ArrayList<>();
+		//indMinList.add(0);
+		//indMinList.add(3);
+		
+		//FillResult res = GrilleFillLigne.fillMinEl(grilleObj1, indMinList);
+		int indMin = grilleObj1.trouverSousCarreAvecMinEl(indMinList).index;
+		assertEquals(0, indMin);
+	}
+	
+	
+	
+	@Test
+	void testFillEl() {
+	
+		
+		int[] row1 = {1, 0, 6, 0, 0, 2, 4, 0, 9}; //-409
+		int[] row2 = {3, 0, 0, 1, 0, 0, 6, 0, 0}; //-600
+		int[] row3 = {0, 2, 0, 4, 0, 0, 0, 0, 7}; //-370
+		int[] row4 = {0, 0, 3, 0, 4, 0, 1, 0, 0};
+		int[] row5 = {0, 5, 7, 0, 9, 0, 0, 2, 0};
+		int[] row6 = {0, 0, 8, 0, 5, 0, 9, 0, 4};
+		int[] row7 = {0, 0, 0, 6, 2, 0, 0, 0, 0}; //--624
+		int[] row8 = {0, 0, 9, 5, 0, 7, 0, 0, 0}; //--587
+		int[] row9 = {5, 0, 0, 0, 0, 3, 8, 0, 0}; //--913
+		
+	//
+	/*
+		int[] row1 = {5, 3, 4, 6, 7, 8, 9, 1, 2}; 
+		int[] row2 = {6, 7, 2, 1, 9, 5, 3, 4, 8};
+		int[] row3 = {0, 0, 0, 3, 4, 2, 0, 6, 7};
+		int[] row4 = {8, 5, 9, 7, 6, 1, 4, 2, 3};
+		int[] row5 = {4, 2, 6, 8, 5, 3, 7, 9, 1};
+		int[] row6 = {7, 1, 3, 9, 2, 4, 8, 5, 6};
+		int[] row7 = {9, 6, 1, 5, 3, 7, 2, 8, 4};
+		int[] row8 = {2, 8, 7, 4, 1, 9, 6, 3, 5};
+		int[] row9 = {3, 4, 5, 2, 8, 6, 1, 7, 9};
+*/
+		int[][] grille1 = {row1, row2, row3, row4, row5, row6, row7, row8, row9};
+		
+		Grille grilleObj1 = new Grille(grille1);
+		
+		
+		Stack<Grille> stack = new Stack<>();
+		stack.push(grilleObj1);
+		
+		ArrayList<Integer> indMinList = new ArrayList<>();
+		//indMinList.add(0);
+		
+		FillResult res = GrilleFillSousCarre.fillMinEl(grilleObj1, indMinList);
+		
+		while(indMinList.size() <9) { 
+			res = GrilleFillSousCarre.fillMinEl(grilleObj1, indMinList);
+			//if(res.grillUpdated) updCol = true;
+			if(res.result == -1) break;
+			else indMinList.add(res.result);
+
+		}
+		
+		System.err.println("res " + res.result);
+		System.out.println(grilleObj1);
+		System.out.println(grilleObj1.valDeuxCasesPossible);
+		
+		assertTrue(true);
+	}
+}
