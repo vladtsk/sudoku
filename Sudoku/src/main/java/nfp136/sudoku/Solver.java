@@ -15,9 +15,7 @@ public class Solver {
 		//Grille grid = stack.peek();
 		ArrayList<Integer> indMinList = new ArrayList<>();
 		
-		
-		
-		
+				
 		FillResult res;
 		boolean updLigne;
 		boolean updCol;
@@ -34,7 +32,7 @@ public class Solver {
 			updLigne = false;
 			updCol = false;
 			updSousCarre = false;
-		
+					
 			indMinList.clear();
 			while(indMinList.size() <9) { 
 				res = GrilleFillSousCarre.fillMinEl(grid, indMinList); //, indMinList
@@ -93,18 +91,7 @@ public class Solver {
 		boolean updateSuccess = false; //variable pour suivre des mis à jour après fillElTry
 
 		while(!updateSuccess) {
-			MinAllResult indMinRes  = grid.findMinIndexAll();
-			
-			//int count = 0;
-			//while(suiviIndMin.contains(indMinRes)) {
-				//indMinRes  = grid.findMinIndexAll();
-				//count ++;
-				//if(count>100) throw new IllegalStateException("Exceeded maximum number of attempts to find the minIndex in insertCandidateValue");
-			//}		
-			
-			//suiviIndMin.add(indMinRes);
-			
-			
+			MinAllResult indMinRes  = grid.findMinIndexAll();		
 			
 			if(indMinRes.index == -1) indMinRes = grid.findCandidateIndex();
 			System.out.println("indMin " + indMinRes.index + ", type: " + indMinRes.type);

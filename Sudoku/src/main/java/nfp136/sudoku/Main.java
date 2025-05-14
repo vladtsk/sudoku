@@ -23,7 +23,7 @@ public class Main {
 		int[] row9 = {4, 7, 0, 0, 0, 6, 0, 0, 0};
 		*/
 		//
-		/*
+		
 		int[] row1 = {5, 0, 0, 0, 7, 0, 0, 0, 0};//53
 		int[] row2 = {6, 0, 0, 1, 0, 0, 0, 0, 0};//195
 		int[] row3 = {0, 9, 0, 0, 0, 0, 0, 6, 0};//98
@@ -33,7 +33,7 @@ public class Main {
 		int[] row7 = {0, 6, 0, 0, 0, 0, 2, 8, 0}; 
 		int[] row8 = {0, 0, 0, 4, 0, 9, 0, 0, 5};//419
 		int[] row9 = {0, 0, 0, 0, 8, 0, 0, 7, 0}; //79
-		*/
+		
 		//
 		
 		/*
@@ -60,12 +60,12 @@ public class Main {
 		int[] row7 = {0, 2, 0, 0, 0, 9, 1, 4, 0};
 		int[] row8 = {6, 0, 1, 2, 5, 0, 8, 0, 9};
 		int[] row9 = {0, 0, 0, 0, 0, 1, 0, 0, 2};
-		
-//		*/
+		*/
+//		
 		
 		
 		// ok
-		
+		/*
 		int[] row1 = {0,0,3,0,2,0,6,0,0};
 		int[] row2 = {9,0,0,3,0,5,0,0,1};
 		int[] row3 = {0,0,1,8,0,6,4,0,0};
@@ -75,7 +75,7 @@ public class Main {
 		int[] row7 = {0,0,2,6,0,9,5,0,0};
 		int[] row8 = {8,0,0,2,0,3,0,0,9};
 		int[] row9 = {0,0,5,0,1,0,3,0,0};
-
+*/
 
 		
 //
@@ -94,16 +94,22 @@ public class Main {
 		grillStack.push(grilleObj1);
 
 		
+		Solution.findSolutions(grillStack, solutions);
 		
+		//SolutionAlt.findAltSolution(grillStack, solutions);
 		
 	
 	
+		
+		
+		
+		/*
 		Solver.solveOrganically(grillStack.peek());
 		
-		int itr = 0;
-		/*while(!grillStack.peek().estComplet() && itr<100) {
-			itr++;
-		*/
+		//int itr = 0;
+		//while(!grillStack.peek().estComplet() && itr<100) {
+			//itr++;
+		
 		
 		
 		
@@ -131,34 +137,7 @@ public class Main {
 				//
 				 
 				
-				/*if(!grillStack.peek().valDeuxCasesPossible.isEmpty() && !grillStack.peek().valDeuxCasesPossible.peek().updatedFirst) {
-					
-					
-					 
-					Grille newGrid = GrillUtils.createArrayCopy(grillStack.peek());
-					 
-					ValPossible val = grillStack.peek().valDeuxCasesPossible.peek();
-					val.updatedFirst = true;
-					
-					newGrid.updateGrille(val.ligne1, val.col1, val.sousCarre1, val.value);
-					grillStack.add(newGrid);
-					Solver.solveOrganically(grillStack);
-					
-				} else if(!grillStack.peek().valDeuxCasesPossible.isEmpty()) {
-					
-					grillStack.pop();
-					ValPossible val = grillStack.peek().valDeuxCasesPossible.peek();
-					
-					if(grillStack.peek().valDeuxCasesPossible.peek().updatedFirst) {
-						
-						grillStack.peek().updateGrille(val.ligne1, val.col1, val.sousCarre1, val.value);
-						
-						grillStack.peek().valDeuxCasesPossible.pop();
-					}
-					
-					
-					
-				}*/
+				
 				
 				int iterations=0;
 				while(!grillStack.peek().estComplet()) {
@@ -205,18 +184,7 @@ public class Main {
 					
 					grillStack.peek().updateForbiddenElCases(failedCase, grillStack);
 					
-					/*int indexCase = grillStack.peek().forbiddenElCases.indexOf(failedCase);
 					
-					
-					
-					if(indexCase == -1) {
-						failedCase.tempValue = 0;
-						grillStack.peek().forbiddenElCases.add(failedCase);
-					} else {
-						System.out.println(failedCase + " already exists in forbiddenElCases");
-						grillStack.peek().forbiddenElCases.get(indexCase).updateValeursInterdites(failedCase.tempValue);
-						grillStack.peek().forbiddenElCases.get(indexCase).tempValue = 0;
-					}*/
 					
 						
 					
@@ -309,6 +277,9 @@ public class Main {
 			
 		}
 		
+		*/
+		//
+		
 			
 			if(solutions.isEmpty()) {
 				System.err.println("No solution found.");
@@ -323,5 +294,4 @@ public class Main {
 		 
 	} 
 }
-
 
